@@ -26,6 +26,6 @@ Route::prefix('v1')->group(function () {
 });
 
  Route::get('ahmed',function(){
-    return 's2s2';
+    return 's2s2للللللللللل';
  });
 
