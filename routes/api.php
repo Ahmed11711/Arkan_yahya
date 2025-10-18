@@ -22,7 +22,7 @@ Route::prefix('Auth')->group(function () {
 Route::post('kyc',[KycController::class,'upload']);
 Route::prefix('v1')->group(function () {
     Route::resource('users',UserController::class);
-    Route::apiResource('blogs', BlogController::class)->names('blog');
+    Route::apiResource('blogssss', BlogController::class)->names('blog');
 });
 
  
