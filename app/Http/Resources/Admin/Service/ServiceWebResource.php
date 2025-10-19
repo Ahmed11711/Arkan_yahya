@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources\Admin\Service;
 
+use App\Http\Resources\Admin\Wallet\WalletResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceResource extends JsonResource
+class ServiceWebResource extends JsonResource
 {
     public function toArray($request): array
     {
@@ -13,10 +14,11 @@ class ServiceResource extends JsonResource
             'title' => $this->title,
             'desc' => $this->desc,
             'img' => $this->img ? url('/private/service/' . basename($this->img)) : null,
-            'push' => $this->push,
-            'push_date' => $this->push_date,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            // 'push' => $this->push,
+            // 'push_date' => $this->push_date,
+            // 'created_at' => $this->created_at,
+            // 'updated_at' => $this->updated_at,
+            'plans' => WalletResource::collection($this->wallets)
         ];
     }
 }

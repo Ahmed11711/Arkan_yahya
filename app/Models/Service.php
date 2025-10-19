@@ -12,5 +12,10 @@ class Service extends Model
     'push_date' => 'date',
 ];
 
+public function wallets()
+{
+    return $this->hasMany(Wallet::class);
+}
+
 
 }

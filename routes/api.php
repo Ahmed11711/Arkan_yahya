@@ -1,11 +1,12 @@
 <?php
 
-  use Illuminate\Support\Facades\Route;
- use App\Http\Controllers\Api\Kyc\KycController;
-   use App\Http\Controllers\Api\Auth\RegisterController;
- use App\Http\Controllers\Api\Auth\ForgetPasswordController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Kyc\KycController;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
 use App\Http\Controllers\Api\Blogs\BlogController;
+use App\Http\Controllers\Api\Service\ServiceController;
 
 Route::prefix('v1/Auth')->group(function () {
 
@@ -16,14 +17,10 @@ Route::prefix('v1/Auth')->group(function () {
     Route::post('forgot-password', [ForgetPasswordController::class, 'sendResetLink']);
     Route::post('reset-password', [ForgetPasswordController::class, 'reset']);
 });
-Route::post('kyc',[KycController::class,'upload']);
- 
+Route::post('kyc', [KycController::class, 'upload']);
+
 Route::prefix('v1')->group(function () {
 
-Route::get('blogs',[BlogController::class,'index']);
-
+    Route::get('blogs', [BlogController::class, 'index']);
+    Route::get('service', [ServiceController::class, 'index']);
 });
-
-
- 
- 

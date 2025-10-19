@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kyc\KycRequest;
+use App\Models\User;
 use App\Repositories\Kyc\KycRepositoryInterface;
 use App\Traits\UploadFileTrait;
 
@@ -33,6 +34,13 @@ class KycController extends Controller
             'face'=>$facePath
         ];
         $this->kycRepo->create($data);
+        $user = User::find($data['user_id']);
+if ($user) {
+    $user->verified_kyc = true;
+    $user->save();
+}
+
+
         return $this->successResponse([], 'KYC uploaded successfully. Pending admin review.');
 
 

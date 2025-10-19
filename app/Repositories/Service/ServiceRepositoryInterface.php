@@ -6,5 +6,5 @@ use App\Repositories\BaseRepository\BaseRepositoryInterface;
 
 interface ServiceRepositoryInterface extends BaseRepositoryInterface
 {
-    //
+    
 }
