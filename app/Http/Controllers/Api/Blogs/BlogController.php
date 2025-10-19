@@ -16,7 +16,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        $blogs = $this->blogsRepo->getLatesByCount(5);
+        $blogs = $this->blogsRepo->getLatesByCount(1);
         return $this->successResponse(
             BlogsWebResource::collection($blogs),
             "Latest blogs retrieved successfully."
