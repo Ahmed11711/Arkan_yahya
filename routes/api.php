@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\User\UserController;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Blog\BlogController;
-   use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\Kyc\KycController;
+   use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Admin\Blog\BlogController;
+use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
- 
+
 Route::prefix('Auth')->group(function () {
 
     Route::post('create-account', [RegisterController::class, 'createUser']);
@@ -20,12 +22,12 @@ Route::prefix('Auth')->group(function () {
 });
 
 Route::post('kyc',[KycController::class,'upload']);
+ 
 Route::prefix('v1')->group(function () {
-    Route::resource('users',UserController::class);
+    Route::apiResource('users', UserController::class)->names('user');
     Route::apiResource('blogs', BlogController::class)->names('blog');
+
+    Route::apiResource('services', ServiceController::class)->names('service');
 });
 
- Route::get('ahmed',function(){
-    return 's2s2للللللللللل';
- });
-
+ 

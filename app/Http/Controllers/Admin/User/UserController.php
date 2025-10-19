@@ -2,76 +2,29 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use App\Models\User;
- use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Resources\Login\LoginResource;
-use App\Http\Requests\Auth\UpdateRegisterRequest;
+use Illuminate\Http\Request; // لازم
+use Illuminate\Http\JsonResponse;
+use App\Http\Resources\Admin\User\UserResource;
+use App\Http\Requests\Admin\User\UserStoreRequest;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Http\Requests\Admin\User\UserUpdateRequest;
+use App\Http\Controllers\BaseController\BaseController;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
-     
-    public function index(Request $request)
-{
-    $query = User::query();
+    public function __construct(UserRepositoryInterface $repository)
+    {
+        parent::__construct();
 
-    if ($request->has('type')) {
-        $query->where('type', $request->type); // خليه ديناميكي مش ثابت على user
+        $this->initService(
+            repository: $repository,
+            collectionName: 'User'
+        );
+
+        $this->storeRequestClass = UserStoreRequest::class;
+        $this->updateRequestClass = UserUpdateRequest::class;
+        $this->resourceClass = UserResource::class;
     }
-
-    $users = $query->get(); // 👈 نفّذ الكويري هنا
-
-    return LoginResource::collection($users);
-}
 
    
-    public function store(RegisterRequest $request)
-    {
-         $data = $request->validated();
-
-         $data['password'] = bcrypt($data['password']);
-
-         $user = User::create($data);
-
-        return new LoginResource($user);
-    }
-
-  
-    public function show(string $id)
-    {
-        $user = User::findOrFail($id);
-        return new LoginResource($user);
-    }
-
-     
-    public function update(UpdateRegisterRequest $request, string $id)
-    {
-        $data=$request->validated();
-        $user = User::findOrFail($id);
-
-
-         if (!empty($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            unset($data['password']); 
-        }
-     Log::info("ss",[$data]);
-
-        $user->update($data);
-
-        return new LoginResource($user);
-    }
-
-    
-    public function destroy(string $id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return response()->json([
-            'message' => 'User deleted successfully',
-        ]);
-    }
 }

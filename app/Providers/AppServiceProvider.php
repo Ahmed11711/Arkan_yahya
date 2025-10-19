@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Service\ServiceRepositoryInterface;
+use App\Repositories\Service\ServiceRepository;
+
 use App\Repositories\blogs\blogsRepositoryInterface;
 use App\Repositories\blogs\blogsRepository;
 
@@ -28,6 +31,8 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(KycRepositoryInterface::class,KycRepository::class);
         $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
         $this->app->bind(blogsRepositoryInterface::class, blogsRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
 }
 
     /**

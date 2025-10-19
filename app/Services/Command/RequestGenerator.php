@@ -122,11 +122,8 @@ class RequestGenerator
         return "<?php
 
 namespace App\\Http\\Requests\\{$namespace};
- use App\Http\Requests\BaseRequest\BaseRequest;
-
-use Illuminate\\Foundation\\Http\\BaseRequest;
-
-class {$className} extends FormRequest
+use App\Http\Requests\BaseRequest\BaseRequest;
+class {$className} extends BaseRequest
 {
     public function authorize(): bool
     {
