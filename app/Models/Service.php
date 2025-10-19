@@ -3,8 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+ 
 class Service extends Model
 {
-    //
+   protected $casts = [
+    
+    'push' => 'boolean',
+    'push_date' => 'date',
+];
+
+
 }

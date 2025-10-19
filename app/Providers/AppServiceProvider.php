@@ -5,12 +5,8 @@ namespace App\Providers;
 use App\Repositories\Service\ServiceRepositoryInterface;
 use App\Repositories\Service\ServiceRepository;
 
-use App\Repositories\blogs\blogsRepositoryInterface;
-use App\Repositories\blogs\blogsRepository;
-
-use App\Repositories\Blog\BlogRepositoryInterface;
-use App\Repositories\Blog\BlogRepository;
-
+use App\Repositories\Blogs\BlogsRepositoryInterface;
+use App\Repositories\Blogs\BlogsRepository;
 use App\Repositories\Kyc\KycRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
@@ -29,9 +25,8 @@ class AppServiceProvider extends ServiceProvider
 $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(UserTwoFactorRepositoryInterface::class,UserTwoFactorRepository::class);
         $this->app->bind(KycRepositoryInterface::class,KycRepository::class);
-        $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
-        $this->app->bind(blogsRepositoryInterface::class, blogsRepository::class);
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+          $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+         $this->app->bind(BlogsRepositoryInterface::class, BlogsRepository::class);
         $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
 }
 

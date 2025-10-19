@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories\Blog;
+namespace App\Repositories\Blogs;
 
-use App\Repositories\Blog\BlogRepositoryInterface;
+use App\Repositories\Blogs\BlogsRepositoryInterface;
 use App\Repositories\BaseRepository\BaseRepository;
 use App\Models\Blog;
 
-class BlogRepository extends BaseRepository implements BlogRepositoryInterface
+class BlogsRepository extends BaseRepository implements BlogsRepositoryInterface
 {
     public function __construct(Blog $model)
     {

@@ -14,8 +14,8 @@ class ServiceUpdateRequest extends BaseRequest
         return [
             'title' => 'sometimes|required|string|max:255',
             'desc' => 'sometimes|required|string',
-            'img' => 'nullable|sometimes|file|max:2048',
-            'push' => 'sometimes|required|integer',
+            'img' => 'nullable|sometimes|max:2048',
+            'push' => 'sometimes|required|boolean',
             'push_date' => 'sometimes|required|date',
         ];
     }

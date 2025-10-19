@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Blogs\BlogsController;
 use App\Http\Controllers\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\Kyc\KycController;
    use App\Http\Controllers\Api\Auth\RegisterController;
@@ -25,9 +26,9 @@ Route::post('kyc',[KycController::class,'upload']);
  
 Route::prefix('v1')->group(function () {
     Route::apiResource('users', UserController::class)->names('user');
-    Route::apiResource('blogs', BlogController::class)->names('blog');
-
+ 
     Route::apiResource('services', ServiceController::class)->names('service');
+    Route::apiResource('blogs', BlogsController::class)->names('blogs');
 });
 
  

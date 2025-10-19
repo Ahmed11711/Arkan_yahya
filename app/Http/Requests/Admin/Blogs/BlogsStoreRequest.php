@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Admin\Service;
+namespace App\Http\Requests\Admin\Blogs;
 use App\Http\Requests\BaseRequest\BaseRequest;
-class ServiceStoreRequest extends BaseRequest
+class BlogsStoreRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -12,10 +12,11 @@ class ServiceStoreRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'desc' => 'required|string',
-            'img' => 'nullable|max:2048',
+            'name' => 'required|string',
+             'text' => 'required|string',
             'push' => 'required|boolean',
+            'img' => 'nullable|max:2048',
+            'service_id' => 'required|integer|exists:services,id',
             'push_date' => 'required|date',
         ];
     }
