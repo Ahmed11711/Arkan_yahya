@@ -12,10 +12,10 @@ class BlogsResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'user_id' => $this->user_id,
+            'userName' => $this->user->name,
             'text' => $this->text,
             'push' => $this->push,
-'img' => $this->img ? url('/private/blogs/' . basename($this->img)) : null,
+            'img' => $this->img ? url('/private/blogs/' . basename($this->img)) : null,
             'service_id' => $this->service_id,
             'push_date' => $this->push_date,
             'created_at' => $this->created_at,

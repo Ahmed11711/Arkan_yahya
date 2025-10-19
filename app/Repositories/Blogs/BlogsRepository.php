@@ -12,4 +12,14 @@ class BlogsRepository extends BaseRepository implements BlogsRepositoryInterface
     {
         parent::__construct($model);
     }
+
+    public function getLatesByCount($count)
+{
+    return $this->model
+                ->orderBy('created_at', 'desc')  
+                ->take($count)                 
+                ->get();
+}
+
+
 }
