@@ -21,4 +21,13 @@ class BlogController extends Controller
             "Latest blogs retrieved successfully."
         );
     }
+
+     public function all()
+    {
+        $blogs = $this->blogsRepo->all();
+        return $this->successResponse(
+            BlogsResource::collection($blogs),
+            "Latest blogs retrieved successfully."
+        );
+    }
 }

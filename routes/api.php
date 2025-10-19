@@ -22,5 +22,6 @@ Route::prefix('v1')->group(function () {
 Route::post('kyc', [KycController::class, 'upload']);
 
     Route::get('blogs', [BlogController::class, 'index']);
+    Route::get('blogs-all', [BlogController::class, 'all']);
     Route::get('service', [ServiceController::class, 'index']);
 });
