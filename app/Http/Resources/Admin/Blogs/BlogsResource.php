@@ -12,7 +12,7 @@ class BlogsResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'userName' => $this->user->name,
+            'userName' => $this->user->name ?? null,
             'text' => $this->text,
             'push' => $this->push,
             'img' => $this->img ? url('/private/blogs/' . basename($this->img)) : null,
