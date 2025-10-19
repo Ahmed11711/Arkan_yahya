@@ -27,7 +27,7 @@ class BlogController extends Controller
     {
         $blogs = $this->blogsRepo->all();
         return $this->successResponse(
-            BlogsResource::collection($blogs),
+            BlogsWebResource::collection($blogs),
             "Latest blogs retrieved successfully."
         );
     }
