@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Wallet\WalletRepositoryInterface;
+use App\Repositories\Wallet\WalletRepository;
+
 use App\Repositories\Service\ServiceRepositoryInterface;
 use App\Repositories\Service\ServiceRepository;
 
@@ -28,6 +31,7 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
           $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
          $this->app->bind(BlogsRepositoryInterface::class, BlogsRepository::class);
         $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
+        $this->app->bind(WalletRepositoryInterface::class, WalletRepository::class);
 }
 
     /**

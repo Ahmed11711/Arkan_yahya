@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Wallet\WalletController;
 use App\Http\Controllers\Admin\Blogs\BlogsController;
 use App\Http\Controllers\Admin\Service\ServiceController;
 use App\Http\Controllers\Api\Kyc\KycController;
@@ -29,6 +30,7 @@ Route::prefix('v1')->group(function () {
  
     Route::apiResource('services', ServiceController::class)->names('service');
     Route::apiResource('blogs', BlogsController::class)->names('blogs');
+    Route::apiResource('wallets', WalletController::class)->names('wallet');
 });
 
  

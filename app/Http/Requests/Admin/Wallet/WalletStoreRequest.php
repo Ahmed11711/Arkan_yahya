@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Requests\Admin\Wallet;
+use App\Http\Requests\BaseRequest\BaseRequest;
+class WalletStoreRequest extends BaseRequest
+{
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    public function rules(): array
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'amount' => 'required|numeric',
+            'profit_rate' => 'required|numeric',
+            'profit_cycle' => 'required|integer',
+            'duration_months' => 'nullable|integer',
+            'capital_return' => 'required|integer',
+            'affiliate_commission_rate' => 'required|numeric',
+            'status' => 'required|in:active,completed,pending',
+            'early_withdraw_penalty' => 'nullable|numeric',
+            'img' => 'nullable|string|max:255|file|max:2048',
+            'service_id' => 'required|integer|exists:services,id',
+        ];
+    }
+}
