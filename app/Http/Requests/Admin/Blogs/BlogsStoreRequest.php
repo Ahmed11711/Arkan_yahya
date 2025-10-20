@@ -15,7 +15,7 @@ class BlogsStoreRequest extends BaseRequest
             'name' => 'required|string',
              'text' => 'required|string',
             'push' => 'required|boolean',
-            'img' => 'nullable|max:2048',
+    'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'service_id' => 'required|integer|exists:services,id',
             'push_date' => 'required|date',
         ];

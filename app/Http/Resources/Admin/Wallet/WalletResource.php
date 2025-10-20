@@ -21,9 +21,9 @@ class WalletResource extends JsonResource
             'status' => $this->status,
             'early_withdraw_penalty' => $this->early_withdraw_penalty,
             'img' => $this->img,
-            'service_id' => $this->service_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'serviceName' => $this->service->title ?? "service",
+              'created_at' => $this->push_date?->format('Y-m-d'), // ←  
+            'updated_at' => $this->push_date?->format('Y-m-d'), // ←  
         ];
     }
 }

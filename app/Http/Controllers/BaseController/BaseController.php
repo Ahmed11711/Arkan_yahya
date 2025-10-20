@@ -58,18 +58,22 @@ abstract class BaseController extends Controller
     {
         $validated = app($this->storeRequestClass)->validated();
 
-        try {
-            DB::beginTransaction();
+     try {
+    DB::beginTransaction();
 
-            $validated = $this->handleFileUploads($request, $validated);
-            $record = $this->repository->create($validated);
+    $validated = $this->handleFileUploads($request, $validated);
+    $record = $this->repository->create($validated);
 
-            DB::commit();
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            Log::error("Error creating {$this->collectionName}: " . $e->getMessage());
-            return $this->errorResponse("Failed to create record", 500);
-        }
+    DB::commit();
+} catch (\Throwable $e) {
+    DB::rollBack();
+    Log::error("Error creating {$this->collectionName}: " . $e->getMessage());
+
+     return $this->errorResponse(
+        "Failed to create {$this->collectionName}: " . $e->getMessage(),
+        500
+    );
+}
 
         return $this->successResponse(new $this->resourceClass($record), 'Record created successfully', 201);
     }

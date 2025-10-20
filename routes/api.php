@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ads\adsController;
 use App\Http\Controllers\Api\Kyc\KycController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
@@ -25,5 +26,6 @@ Route::post('kyc', [KycController::class, 'upload']);
     Route::get('blogs/{id}', [BlogController::class, 'show']);
     Route::get('blogs-all', [BlogController::class, 'all']);
     Route::get('service', [ServiceController::class, 'index']);
+    Route::apiResource('ads', adsController::class)->names('ads');
 });
 require __DIR__.'/admin.php'; 

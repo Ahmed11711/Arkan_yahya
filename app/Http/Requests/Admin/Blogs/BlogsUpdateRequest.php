@@ -15,7 +15,7 @@ class BlogsUpdateRequest extends BaseRequest
             'name' => 'sometimes|required|string',
              'text' => 'sometimes|required|string',
             'push' => 'sometimes|required|integer',
-            'img' => 'nullable|sometimes|max:2048',
+    'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'service_id' => 'sometimes|required|integer|exists:services,id',
             'push_date' => 'sometimes|required|date',
         ];

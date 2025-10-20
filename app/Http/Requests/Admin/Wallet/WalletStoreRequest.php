@@ -22,7 +22,7 @@ class WalletStoreRequest extends BaseRequest
             'affiliate_commission_rate' => 'required|numeric',
             'status' => 'required|in:active,completed,pending',
             'early_withdraw_penalty' => 'nullable|numeric',
-            'img' => 'nullable|string|max:255|file|max:2048',
+    'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'service_id' => 'required|integer|exists:services,id',
         ];
     }
