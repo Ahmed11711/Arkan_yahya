@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Rank\RankRepositoryInterface;
+use App\Repositories\Rank\RankRepository;
+
 use App\Repositories\ads\adsRepositoryInterface;
 use App\Repositories\ads\adsRepository;
 
@@ -36,6 +39,7 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
         $this->app->bind(WalletRepositoryInterface::class, WalletRepository::class);
         $this->app->bind(adsRepositoryInterface::class, adsRepository::class);
+        $this->app->bind(RankRepositoryInterface::class, RankRepository::class);
 }
 
     /**

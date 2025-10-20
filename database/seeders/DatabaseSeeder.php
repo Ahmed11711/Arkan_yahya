@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ServiceSeeder::class,
             BlogsSeeder::class,
-            WalletSeeder::class
+            WalletSeeder::class,
+            RankSeeder::class,
         ]);
     }
 }
