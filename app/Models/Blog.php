@@ -19,4 +19,9 @@ class Blog extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
 }
