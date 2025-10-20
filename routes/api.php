@@ -26,4 +26,4 @@ Route::post('kyc', [KycController::class, 'upload']);
     Route::get('blogs-all', [BlogController::class, 'all']);
     Route::get('service', [ServiceController::class, 'index']);
 });
-require __DIR__.'/admin.php';
+require __DIR__.'/admin.php'; 

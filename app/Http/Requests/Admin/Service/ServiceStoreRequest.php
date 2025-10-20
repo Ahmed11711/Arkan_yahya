@@ -14,7 +14,7 @@ class ServiceStoreRequest extends BaseRequest
         return [
             'title' => 'required|string|max:255',
             'desc' => 'required|string',
-            'img' => 'nullable|max:2048',
+    'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'push' => 'required|boolean',
             'push_date' => 'required|date',
         ];
