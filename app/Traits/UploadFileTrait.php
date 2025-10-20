@@ -1,3 +1,4 @@
+<?php
 namespace App\Traits;
 
 use Illuminate\Http\UploadedFile;
