@@ -24,7 +24,7 @@ abstract class BaseController extends Controller
 
     public function __construct() {}
 
-    protected function initService($repository, string $collectionName, array $fileFields = [], string $uploadDisk = 'private'): void
+    protected function initService($repository, string $collectionName, array $fileFields = [], string $uploadDisk = 'public'): void
     {
         $this->repository = $repository;
         $this->collectionName = $collectionName;
