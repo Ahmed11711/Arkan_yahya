@@ -15,7 +15,7 @@ class ServiceUpdateRequest extends BaseRequest
             'title' => 'sometimes|required|string|max:255',
             'desc' => 'sometimes|required|string',
     'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-            'push' => 'sometimes|required|boolean',
+            'push' => 'sometimes|required|integer',
             'push_date' => 'sometimes|required|date',
         ];
     }
