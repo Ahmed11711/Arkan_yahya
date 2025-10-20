@@ -20,7 +20,7 @@ abstract class BaseController extends Controller
     protected string $resourceClass;
     protected ?string $collectionName = null;
     protected array $fileFields = [];
-    protected string $uploadDisk = 'private';
+    protected string $uploadDisk = 'public';
 
     public function __construct() {}
 
@@ -116,30 +116,34 @@ abstract class BaseController extends Controller
         return $this->successResponse(null, "$deletedCount record(s) deleted successfully");
     }
 
-    protected function handleFileUploads(Request $request, array $validated, $existingRecord = null): array
-    {
-        if (empty($this->fileFields)) {
-            return $validated;
-        }
+   protected function handleFileUploads(Request $request, array $validated, $existingRecord = null): array
+{
+    if (empty($this->fileFields)) return $validated;
 
-        foreach ($this->fileFields as $field) {
-            if ($request->hasFile($field)) {
-                try {
-                    $file = $request->file($field);
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = $file->storeAs("uploads/{$this->collectionName}", $filename, $this->uploadDisk);
+    foreach ($this->fileFields as $field) {
+        if ($request->hasFile($field)) {
+            try {
+                $file = $request->file($field);
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs("uploads/{$this->collectionName}", $filename, $this->uploadDisk);
 
-                    if ($existingRecord && !empty($existingRecord->$field)) {
-                        Storage::disk($this->uploadDisk)->delete($existingRecord->$field);
-                    }
-
-                    $validated[$field] = $path;
-                } catch (\Throwable $e) {
-                    Log::error("File upload failed for field [{$field}] in {$this->collectionName}: " . $e->getMessage());
+                // حذف الملف القديم إذا موجود
+                if ($existingRecord && !empty($existingRecord->$field)) {
+                    Storage::disk($this->uploadDisk)
+                        ->delete('uploads/'.$this->collectionName.'/'.basename($existingRecord->$field));
                 }
+
+                /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+                $disk = Storage::disk($this->uploadDisk);
+                $validated[$field] = $disk->url($path);
+
+            } catch (\Throwable $e) {
+                Log::error("File upload failed for field [{$field}] in {$this->collectionName}: " . $e->getMessage());
             }
         }
-
-        return $validated;
     }
+
+    return $validated;
+}
+
 }
