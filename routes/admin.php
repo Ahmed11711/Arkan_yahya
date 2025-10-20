@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\Service\ServiceController;
 
 Route::prefix('admin/v1')->group(function () {
     
-
+//////////////////////
     Route::apiResource('users', UserController::class)->names('user');
     Route::apiResource('services', ServiceController::class)->names('service');
     Route::apiResource('blogs', BlogsController::class)->names('blogs');
