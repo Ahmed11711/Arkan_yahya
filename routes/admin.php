@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ads\adsController;
+use App\Http\Controllers\Admin\Rank\RankController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Blogs\BlogsController;
 use App\Http\Controllers\Admin\Wallet\WalletController;
@@ -14,4 +16,6 @@ Route::prefix('admin/v1')->group(function () {
     Route::apiResource('services', ServiceController::class)->names('service');
     Route::apiResource('blogs', BlogsController::class)->names('blogs');
     Route::apiResource('wallets', WalletController::class)->names('wallet');
+    Route::apiResource('ads', adsController::class)->names('ads');
+    Route::apiResource('ranks', RankController::class)->names('rank');
 });
