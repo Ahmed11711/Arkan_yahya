@@ -1,14 +1,15 @@
 <?php
 
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Rank\RankController;
-use App\Http\Controllers\Admin\ads\adsController;
 use App\Http\Controllers\Api\Kyc\KycController;
+use App\Http\Controllers\Admin\ads\adsController;
+use App\Http\Controllers\Api\Blogs\BlogController;
+use App\Http\Controllers\Admin\Rank\RankController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Service\ServiceController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
-use App\Http\Controllers\Api\Blogs\BlogController;
-use App\Http\Controllers\Api\Service\ServiceController;
 
 Route::prefix('v1/Auth')->group(function () {
 
@@ -30,4 +31,7 @@ Route::post('kyc', [KycController::class, 'upload']);
     Route::apiResource('ads', adsController::class)->names('ads');
     Route::apiResource('ranks', RankController::class)->names('rank');
 });
+
+
+ 
 require __DIR__.'/admin.php'; 
