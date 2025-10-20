@@ -31,4 +31,18 @@ class BlogController extends Controller
             "Latest blogs retrieved successfully."
         );
     }
+
+   public function show($id)
+{
+    $blog = $this->blogsRepo->find($id);
+
+    if (!$blog) {
+        return $this->errorResponse("Blog not found", 404);
+    }
+
+    return $this->successResponse(
+        new BlogsWebResource($blog),
+        "Blog retrieved successfully."
+    );
+}
 }
