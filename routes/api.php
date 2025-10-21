@@ -6,10 +6,11 @@ use App\Http\Middleware\JwtMiddleware;
 use App\Http\Controllers\Api\Kyc\KycController;
 use App\Http\Controllers\Api\Blogs\BlogController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Deposit\DepositController;
 use App\Http\Controllers\Api\Service\ServiceController;
+use App\Http\Controllers\Api\Withdraw\WithdrawController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
-use App\Http\Controllers\Api\Deposit\DepositController;
 
 Route::prefix('v1')->group(function () {
 
@@ -21,7 +22,7 @@ Route::prefix('v1')->group(function () {
         Route::post('verify-otp', [VerificationCodeController::class, 'verifyOtp']);
         Route::post('forgot-password', [ForgetPasswordController::class, 'sendResetLink']);
         Route::post('reset-password', [ForgetPasswordController::class, 'reset']);
-    });
+});
 
     // KYC route
     Route::post('kyc', [KycController::class, 'upload']);
@@ -30,12 +31,15 @@ Route::prefix('v1')->group(function () {
     Route::get('blogs', [BlogController::class, 'index']);
     Route::get('blogs/{id}', [BlogController::class, 'show']);
     Route::get('blogs-all', [BlogController::class, 'all']);
-
-    // Service routes
     Route::get('service', [ServiceController::class, 'index']);
-   
+
+    // middleware
     Route::middleware(JwtMiddleware::class)->group(function () {
+    Route::get('deposit',[DepositController::class,'deposit']);
     Route::get('check-deposit',[DepositController::class,'checkDeposit']);
+    // withdraw
+    Route::post('create-withdraw',[WithdrawController::class,'store']);
+    Route::get('withdraw',[WithdrawController::class,'withdraw']);
     });
 
 ////

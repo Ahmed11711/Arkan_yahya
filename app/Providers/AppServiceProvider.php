@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\Withdraw\WithdrawRepositoryInterface;
+use App\Repositories\Withdraw\WithdrawRepository;
+
+use App\Repositories\Deposit\DepositRepositoryInterface;
+use App\Repositories\Deposit\DepositRepository;
+
 use App\Repositories\Rank\RankRepositoryInterface;
 use App\Repositories\Rank\RankRepository;
 
@@ -40,6 +46,8 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(WalletRepositoryInterface::class, WalletRepository::class);
         $this->app->bind(adsRepositoryInterface::class, adsRepository::class);
         $this->app->bind(RankRepositoryInterface::class, RankRepository::class);
+        $this->app->bind(DepositRepositoryInterface::class, DepositRepository::class);
+        $this->app->bind(WithdrawRepositoryInterface::class, WithdrawRepository::class);
 }
 
     /**

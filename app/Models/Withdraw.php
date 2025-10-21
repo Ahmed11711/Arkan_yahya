@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Deposit extends Model
+class Withdraw extends Model
 {
     //
 
@@ -14,12 +14,6 @@ class Deposit extends Model
     }
 
 
-    
-
-
-    public function transaction()
-    {
-        return $this->belongsTo(Transaction::class, 'transaction_id');
-    }
+  
 
 }

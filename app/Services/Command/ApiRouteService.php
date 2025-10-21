@@ -10,9 +10,9 @@ class ApiRouteService
     public static function make(string $model, ?string $module = null, ?string $prefix = null)
     {
          if ($module) {
-             $apiFile = base_path("Modules/{$module}/routes/api.php");
+             $apiFile = base_path("Modules/{$module}/routes/admin.php");
         } else {
-             $apiFile = base_path("routes/api.php");
+             $apiFile = base_path("routes/admin.php");
         }
 
          if (!File::exists($apiFile)) {

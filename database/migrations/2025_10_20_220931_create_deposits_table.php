@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deposits', function (Blueprint $table) {
-           $table->id();
+            $table->id();
             $table->string('transaction_id')->unique();  
             $table->string('address');                    
             $table->string('symbol');                     
-            $table->decimal('amount', 30, 6);           
+            $table->decimal('amount', 30, 6);  
+            $table->integer('user_id');
+            $table->enum('status', ['pending', 'completed', 'failed'])->default('completed');      
             $table->timestamps();
-            
-             $table->index(['address', 'symbol']);
+
+            // Composite index
+            $table->index(['user_id', 'status']);
         });
     }
 
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('deposites');
+        Schema::dropIfExists('deposits');
     }
 };
