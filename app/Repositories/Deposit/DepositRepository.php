@@ -15,6 +15,6 @@ class DepositRepository extends BaseRepository implements DepositRepositoryInter
 
         public function getByUserId($userId)
         {
-         return $this->model->where('user_id', $userId)->paginate(5);
+         return $this->model->where('user_id', $userId)->get();
         }
 }
