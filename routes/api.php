@@ -11,7 +11,6 @@ use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
 use App\Http\Controllers\Api\Deposit\DepositController;
 
-Route::prefix('v1')->group(function () {
 
     // Auth routes
     Route::prefix('Auth')->group(function () {
@@ -25,6 +24,7 @@ Route::prefix('v1')->group(function () {
 
     // KYC route
     Route::post('kyc', [KycController::class, 'upload']);
+Route::prefix('v1')->group(function () {
 
     // Blog routes
     Route::get('blogs', [BlogController::class, 'index']);
