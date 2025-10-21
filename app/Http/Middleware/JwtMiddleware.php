@@ -13,21 +13,25 @@ use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 class JwtMiddleware
 {
     use ApiResponseTrait;
-    public function handle(Request $request, Closure $next)
-    {
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
+   public function handle(Request $request, Closure $next)
+{
+    try {
+            $payload = JWTAuth::parseToken()->getPayload();
+            $request->attributes->set('user', [
+                'id' => $payload->get('sub'),
+                'name' => $payload->get('name'),
+                'email' => $payload->get('email'),
+                'linkDeposit' => $payload->get('linkDeposit')
+            ]);
         } catch (TokenExpiredException $e) {
             return $this->errorResponse('Token expired');
-         } catch (TokenInvalidException $e) {
+        } catch (TokenInvalidException $e) {
             return $this->errorResponse('Token invalid');
         } catch (JWTException $e) {
             return $this->errorResponse('Token not provided');
-
-         }
-
-         $request->attributes->set('user', $user);
+        }
 
         return $next($request);
-    }
+}
+
 }

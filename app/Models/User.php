@@ -50,6 +50,14 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
+
+
+    public function tron()
+    {
+        return $this->hasOne(userTron::class);
+
+    }
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -57,7 +65,12 @@ class User extends Authenticatable implements JWTSubject
 
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'id'=>$this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'linkDeposit'=>$this->tron->address ??null,
+        ];
     }
 
     

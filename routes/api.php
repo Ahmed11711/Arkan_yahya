@@ -9,11 +9,12 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Service\ServiceController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
+use App\Http\Controllers\Api\Deposit\DepositController;
 
 Route::prefix('v1')->group(function () {
 
     // Auth routes
-    Route::prefix('auth')->group(function () {
+    Route::prefix('Auth')->group(function () {
         Route::post('create-account', [RegisterController::class, 'createUser']);
         Route::post('login', [RegisterController::class, 'login']);
         Route::post('send-otp', [VerificationCodeController::class, 'sendOtp']);
@@ -34,7 +35,7 @@ Route::prefix('v1')->group(function () {
     Route::get('service', [ServiceController::class, 'index']);
    
     Route::middleware(JwtMiddleware::class)->group(function () {
-
+    Route::get('check-deposit',[DepositController::class,'checkDeposit']);
     });
 
 
