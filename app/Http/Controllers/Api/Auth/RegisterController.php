@@ -25,13 +25,13 @@ class RegisterController extends Controller
         $data = $request->validated();
         $commingAffiliate = $request->input('coming_affiliate');
         $service = $this->modelService->createUser($data, $commingAffiliate);
-        $response = Http::get('http://localhost:3000/tron/create-wallet');
-        $walletData = $response->json();
-        Log::info("dd", [$walletData]);
-        $password = "ahmed";
-        $this->encryptData($walletData, $service->id, $password);
+        // $response = Http::get('http://localhost:3000/tron/create-wallet');
+        // $walletData = $response->json();
+        // Log::info("dd", [$walletData]);
+        // $password = "ahmed";
+        // $this->encryptData($walletData, $service->id, $password);
 
-        return $this->get($service['id']);
+        // return $this->get($service['id']);
         return $this->successResponse($service, 'User registered successfully.');
     }
 
