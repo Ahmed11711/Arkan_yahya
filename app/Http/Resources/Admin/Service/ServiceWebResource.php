@@ -18,7 +18,8 @@ class ServiceWebResource extends JsonResource
             // 'push_date' => $this->push_date,
             // 'created_at' => $this->created_at,
             // 'updated_at' => $this->updated_at,
-            'plans' => WalletResource::collection($this->wallets)
+            'plans' => WalletResource::collection($this->wallets),
+            //
         ];
     }
 }
