@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('verified_kyc')->default(false);
             $table->enum('type',['user','guest','admin'])->default('user');
             $table->rememberToken();
+            $table->string('google_id')->nullable();
             $table->timestamps();
         });
 

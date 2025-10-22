@@ -138,42 +138,46 @@ use App\Http\Requests\Auth\LoginByGoogleRequest;
         return json_decode($plaintext, true);
     }
 
-     public function googleLogin(LoginByGoogleRequest $request)
-    {
-        $data=$request->validated();
+    public function googleLogin(LoginByGoogleRequest $request)
+{
+    $data = $request->validated();
+    $idToken = $data['id_token'];
+    $client = new Google_Client([
+        'client_id' => '205900460791-h21g4s9m289i97ce8g9ctvuhj2skcf79.apps.googleusercontent.com'
+    ]);
 
-        $idToken = $data['id_token'];
-        $client = new Google_Client(['client_id' => '205900460791-h21g4s9m289i97ce8g9ctvuhj2skcf79.apps.googleusercontent.com']);
-        $payload = $client->verifyIdToken($idToken);
+    $payload = $client->verifyIdToken($idToken);
 
-        if (!$payload) {
-            return response()->json(['error' => 'Invalid Google token'], 401);
-        }
-
-        return $payload;
-        $googleId = $payload['sub'];
-        $email    = $payload['email'];
-        $name     = $payload['name'] ?? $payload['given_name'];
-        $avatar   = $payload['picture'] ?? null;
-
-         $user = User::firstOrCreate(
-            ['google_id' => $googleId],
-            [
-                'name' => $name,
-                'email' => $email,
-                'avatar' => $avatar,
-                'password' => bcrypt(Str::random(16)), // كلمة مرور افتراضية
-            ]
-        );
-
-        // ممكن تستخدم Laravel Sanctum أو Passport لإعطاء توكن داخلي
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'user' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
+    if (!$payload) {
+        return $this->errorResponse('Invalid Google token', 401);
     }
+
+    $googleId = $payload['sub'];
+    $email    = $payload['email'];
+    $name     = $payload['name'] ?? $payload['given_name'];
+    $avatar   = $payload['picture'] ?? null;
+
+     $user = User::firstOrCreate(
+        ['google_id' => $googleId],
+        [
+            'name' => $name,
+            'email' => $email,
+            // 'avatar' => $avatar,
+            'password' => bcrypt(Str::random(16)), 
+        ]
+    );
+
+     if (isset($user->active) && !$user->active) {
+        return $this->errorResponse('Your account is deactivated. Contact support.', 403);
+    }
+
+     $token = JWTAuth::fromUser($user);
+
+    return $this->successResponse([
+        'user' => new LoginResource($user),
+        'token' => $token,
+    ], 'Login Successfully');
+}
+
 
 }
