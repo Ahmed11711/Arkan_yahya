@@ -19,7 +19,7 @@ class RegisterRequest extends BaseRequest
                 'not_in:password,123456',
             ],
             'type' => 'required|in:user,guest',
-            // 'coming_affiliate' => 'sometimes|string|exists:users,affiliate_code'
+            'coming_affiliate' => 'required|string|exists:users,affiliate_code'
         ];
     }
 
