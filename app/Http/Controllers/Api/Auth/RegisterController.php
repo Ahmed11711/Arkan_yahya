@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use Google_Client;
+use App\Models\User;
 use Illuminate\Support\Str;
 use App\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\DB;
 use App\Services\Auth\RegisterService;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Login\LoginResource;
-use Illuminate\Support\Facades\Log;
+use App\Http\Requests\Auth\LoginByGoogleRequest;
 
-class RegisterController extends Controller
+ class RegisterController extends Controller
 {
     use ApiResponseTrait;
 
@@ -134,4 +137,43 @@ class RegisterController extends Controller
 
         return json_decode($plaintext, true);
     }
+
+     public function googleLogin(LoginByGoogleRequest $request)
+    {
+        $data=$request->validated();
+
+        $idToken = $data['id_token'];
+        $client = new Google_Client(['client_id' => '205900460791-h21g4s9m289i97ce8g9ctvuhj2skcf79.apps.googleusercontent.com']);
+        $payload = $client->verifyIdToken($idToken);
+
+        if (!$payload) {
+            return response()->json(['error' => 'Invalid Google token'], 401);
+        }
+
+        return $payload;
+        $googleId = $payload['sub'];
+        $email    = $payload['email'];
+        $name     = $payload['name'] ?? $payload['given_name'];
+        $avatar   = $payload['picture'] ?? null;
+
+         $user = User::firstOrCreate(
+            ['google_id' => $googleId],
+            [
+                'name' => $name,
+                'email' => $email,
+                'avatar' => $avatar,
+                'password' => bcrypt(Str::random(16)), // كلمة مرور افتراضية
+            ]
+        );
+
+        // ممكن تستخدم Laravel Sanctum أو Passport لإعطاء توكن داخلي
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
+    }
+
 }

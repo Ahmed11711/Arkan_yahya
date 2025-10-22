@@ -18,6 +18,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('Auth')->group(function () {
         Route::post('create-account', [RegisterController::class, 'createUser']);
         Route::post('login', [RegisterController::class, 'login']);
+        Route::post('login-google', [RegisterController::class, 'googleLogin']);
         Route::post('send-otp', [VerificationCodeController::class, 'sendOtp']);
         Route::post('verify-otp', [VerificationCodeController::class, 'verifyOtp']);
         Route::post('forgot-password', [ForgetPasswordController::class, 'sendResetLink']);
