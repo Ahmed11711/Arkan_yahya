@@ -2,9 +2,8 @@
 
 namespace App\Repositories\Kyc;
 
-use App\Repositories\Kyc\KycRepositoryInterface;
 use App\Repositories\BaseRepository\BaseRepository;
- use App\Models\UserKyc as ModelsUserKyc;
+use App\Models\UserKyc as ModelsUserKyc;
 
 class KycRepository extends BaseRepository implements KycRepositoryInterface
 {
@@ -13,6 +12,8 @@ class KycRepository extends BaseRepository implements KycRepositoryInterface
         parent::__construct($model);
     }
 
-   
-
+    public function getByUserId(int $userId)
+    {
+        return $this->model->where('user_id', $userId)->get();
+    }
 }

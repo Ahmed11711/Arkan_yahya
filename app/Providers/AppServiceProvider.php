@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\UserKyc\UserKycRepositoryInterface;
+use App\Repositories\UserKyc\UserKycRepository;
+
 use App\Repositories\Withdraw\WithdrawRepositoryInterface;
 use App\Repositories\Withdraw\WithdrawRepository;
 
@@ -48,6 +51,7 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(RankRepositoryInterface::class, RankRepository::class);
         $this->app->bind(DepositRepositoryInterface::class, DepositRepository::class);
         $this->app->bind(WithdrawRepositoryInterface::class, WithdrawRepository::class);
+        $this->app->bind(UserKycRepositoryInterface::class, UserKycRepository::class);
 }
 
     /**

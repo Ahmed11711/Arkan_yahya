@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserKyc\UserKycController;
 use App\Http\Controllers\Admin\Withdraw\WithdrawController;
 use App\Http\Controllers\Admin\ads\adsController;
 use App\Http\Controllers\Admin\Rank\RankController;
@@ -27,4 +28,5 @@ Route::prefix('admin/v1')->group(function () {
 Route::prefix('v1')->group(function () {
     Route::apiResource('deposits', DepositController::class)->names('deposit');
     Route::apiResource('withdraws', WithdrawController::class)->names('withdraw');
+    Route::apiResource('user_kycs', UserKycController::class)->names('user_kyc');
 });

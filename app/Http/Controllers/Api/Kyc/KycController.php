@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kyc\KycRequest;
+use App\Http\Resources\Admin\UserKyc\UserKycResource;
 use App\Models\User;
 use App\Repositories\Kyc\KycRepositoryInterface;
 use App\Traits\UploadFileTrait;
@@ -15,6 +16,14 @@ class KycController extends Controller
     use ApiResponseTrait,UploadFileTrait;
     public function __construct(protected KycRepositoryInterface $kycRepo)
     {}
+
+    public function index(Request $request)
+    {
+        $user = $request->get('user'); 
+        $get=$this->kycRepo->getByUserId($user['id']);
+        return $this->successResponse(UserKycResource::collection($get),"return successful");
+
+    }
     public function upload(KycRequest $request)
     {
         

@@ -41,6 +41,10 @@ Route::prefix('v1')->group(function () {
     // withdraw
     Route::post('create-withdraw',[WithdrawController::class,'store']);
     Route::get('withdraw',[WithdrawController::class,'withdraw']);
+
+    //kyc
+        Route::get('kyc', [KycController::class, 'index']);
+
     });
 
 ////
