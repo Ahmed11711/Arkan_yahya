@@ -44,7 +44,7 @@ Route::prefix('v1')->group(function () {
     Route::get('withdraw',[WithdrawController::class,'withdraw']);
 
     //kyc
-    Route::get('kyc', [KycController::class, 'index']);
+        Route::get('kyc', [KycController::class, 'index']);
         Route::get('Affiliate',[AffiliateController::class,'getByParent']);
 
 
