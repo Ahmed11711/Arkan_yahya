@@ -7,9 +7,12 @@ use App\Models\Affiliate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AffiliateRequest;
+use App\Http\Resources\Affiliate\AffiliateResource;
+use App\Traits\ApiResponseTrait;
 
 class AffiliateController extends Controller
 {
+    use ApiResponseTrait;
     public function index(AffiliateRequest $request)
     {
         $userId=$request->user_id;
@@ -19,14 +22,13 @@ class AffiliateController extends Controller
 
     public function getByParent(Request $request)
     {
-        $parentId=0;
-        if($request->user_id)
-        {
-         $parentId=$request->user_id;
-        }
-       $user = $request->get('user'); 
-       $parentId=$user['id'];
+        $parentId = $request->input('user_id')
+        ?? optional($request->user())->id
+        ?? data_get($request->get('user'), 'id');
+         $affiliate=Affiliate::where('parent_id',$parentId)->get();
+        return $this->successResponse(AffiliateResource::collection($affiliate));
 
+ 
     }
 
 
@@ -51,7 +53,7 @@ class AffiliateController extends Controller
                 'user_id' => $userId,
                 'parent_id' => $parent->id,
                 'generation' => $generation,
-                'active' => true,
+                'active' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
