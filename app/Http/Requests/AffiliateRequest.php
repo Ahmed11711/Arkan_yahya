@@ -13,7 +13,6 @@ class AffiliateRequest extends BaseRequest
     {
         return [
             'user_id'=>'required|integer|exists:users,id',
-            'coming_affiliate'=>'required|exists:users,affiliate_code'
-        ];
+         ];
     }
 }

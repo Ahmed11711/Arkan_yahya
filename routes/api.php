@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Deposit\DepositController;
 use App\Http\Controllers\Api\Service\ServiceController;
 use App\Http\Controllers\Api\Withdraw\WithdrawController;
+use App\Http\Controllers\Api\Affiliate\AffiliateController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
 
@@ -46,6 +47,8 @@ Route::prefix('v1')->group(function () {
     Route::get('kyc', [KycController::class, 'index']);
 
     });
+
+    Route::post('Affiliate',[AffiliateController::class,'index']);
 
 ////
 
