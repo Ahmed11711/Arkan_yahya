@@ -132,7 +132,7 @@ use App\Http\Requests\Auth\LoginByGoogleRequest;
         sodium_memzero($key);
 
         if ($plaintext === false) {
-            return null; // كلمة السر خطأ أو البيانات تالفة
+            return null; 
         }
 
         return json_decode($plaintext, true);
@@ -141,7 +141,9 @@ use App\Http\Requests\Auth\LoginByGoogleRequest;
     public function googleLogin(LoginByGoogleRequest $request)
 {
     $data = $request->validated();
-    $idToken = $data['id_token'];
+    $idTokens = $data['id_token'];
+     $idToken = $idTokens['credential'];
+    
     $client = new Google_Client([
         'client_id' => '205900460791-h21g4s9m289i97ce8g9ctvuhj2skcf79.apps.googleusercontent.com'
     ]);
