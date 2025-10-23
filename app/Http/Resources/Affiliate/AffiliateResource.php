@@ -15,6 +15,7 @@ class AffiliateResource extends JsonResource
                 'user_id'=>$this->user->id ?? null,
                 'name' => $this->user?->name ?? null,
                 'email' => $this->user?->email ?? null,
+                'phone' => $this->user?->phone ?? null,
                 'generation' => $this->generation,
                 'active' => $this->active,
                 'block' => $this->block,
