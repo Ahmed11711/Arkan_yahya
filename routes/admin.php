@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserPlan\UserPlanController;
 use App\Http\Controllers\Admin\UserRank\UserRankController;
 use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\UserKyc\UserKycController;
@@ -37,4 +38,5 @@ Route::prefix('admin/v1')->group(function () {
 
 Route::prefix('v1')->group(function () {
  
+    Route::apiResource('user_plans', UserPlanController::class)->names('user_plan');
 });

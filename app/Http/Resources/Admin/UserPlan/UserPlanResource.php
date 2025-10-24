@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Resources\Admin\UserPlan;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class UserPlanResource extends JsonResource
+{
+    public function toArray($request): array
+    {
+        return [
+            'id' => $this->id,
+            'user_id' => $this->user_id,
+            'wallet_id' => $this->wallet_id,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'transaction_id' => $this->transaction_id,
+            'status' => $this->status,
+            'price' => $this->price,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+}

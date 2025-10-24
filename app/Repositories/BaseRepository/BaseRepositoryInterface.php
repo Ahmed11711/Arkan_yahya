@@ -11,6 +11,8 @@ interface BaseRepositoryInterface {
 
     public function find($id);
     public function findBYKey($key,$value);
+    public function getByUserId($userId);
+
 
     public function allRelations(array $data);
     public function create(array $data);

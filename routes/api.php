@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Withdraw\WithdrawController;
 use App\Http\Controllers\Api\Affiliate\AffiliateController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
+use App\Http\Controllers\Api\UserPlan\UserPlanController;
 
 Route::prefix('v1')->group(function () {
 
@@ -44,8 +45,10 @@ Route::prefix('v1')->group(function () {
     Route::get('withdraw',[WithdrawController::class,'withdraw']);
 
     //kyc
-        Route::get('kyc', [KycController::class, 'index']);
-        Route::get('Affiliate',[AffiliateController::class,'getByParent']);
+    Route::get('kyc', [KycController::class, 'index']);
+    Route::get('Affiliate',[AffiliateController::class,'getByParent']);
+    Route::get('userSubscribe',[UserPlanController::class,'index']);
+    Route::post('userSubscribe',[UserPlanController::class,'store']);
     });
 
     Route::post('Affiliate',[AffiliateController::class,'index']);
