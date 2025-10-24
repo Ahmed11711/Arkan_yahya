@@ -13,5 +13,9 @@ class UserPlanRepository extends BaseRepository implements UserPlanRepositoryInt
         parent::__construct($model);
     }
 
-  
+   public function getByUserIdWithRelations($userId,$relation)
+    {
+     return $this->model->where('user_id', $userId)->with($relation)->get();
+
+    }
 }
