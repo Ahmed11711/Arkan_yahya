@@ -13,8 +13,5 @@ class DepositRepository extends BaseRepository implements DepositRepositoryInter
         parent::__construct($model);
     }
 
-        public function getByUserId($userId)
-        {
-         return $this->model->where('user_id', $userId)->get();
-        }
+       
 }

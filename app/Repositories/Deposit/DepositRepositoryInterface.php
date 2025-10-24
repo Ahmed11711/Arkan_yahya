@@ -6,6 +6,5 @@ use App\Repositories\BaseRepository\BaseRepositoryInterface;
 
 interface DepositRepositoryInterface extends BaseRepositoryInterface
 {
-            public function getByUserId(int $userId);
 
 }

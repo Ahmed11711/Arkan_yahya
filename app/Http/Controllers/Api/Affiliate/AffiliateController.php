@@ -16,20 +16,18 @@ class AffiliateController extends Controller
     use ApiResponseTrait;
     public function index(AffiliateRequest $request)
     {
-        $userId=$request->user_id;
-        $user=User::select('id','coming_affiliate')->where('id',$userId)->first();
-        return $this->createAffiliateRelations($userId,$user->coming_affiliate);
+        $userId = $request->user_id;
+        $user = User::select('id', 'coming_affiliate')->where('id', $userId)->first();
+        return $this->createAffiliateRelations($userId, $user->coming_affiliate);
     }
 
     public function getByParent(Request $request)
     {
         $parentId = $request->input('user_id')
-        ?? optional($request->user())->id
-        ?? data_get($request->get('user'), 'id');
-         $affiliate=Affiliate::where('parent_id',$parentId)->get();
+            ?? optional($request->user())->id
+            ?? data_get($request->get('user'), 'id');
+        $affiliate = Affiliate::where('parent_id', $parentId)->get();
         return $this->successResponse(AffiliateResource::collection($affiliate));
-
- 
     }
 
 
@@ -69,34 +67,38 @@ class AffiliateController extends Controller
     }
 
     public function updateParentRanks($userId)
-{
-     $parents = Affiliate::where('user_id', $userId)->pluck('parent_id');
+    {
+        $parents = Affiliate::where('user_id', $userId)->pluck('parent_id');
 
-    foreach ($parents as $parentId) {
-        // احسب عدد المباشرين
-        $countDirect = Affiliate::where('parent_id', $parentId)
-            ->where('generation', 1)
-            ->count();
+        foreach ($parents as $parentId) {
+            // احسب عدد المباشرين
+            $countDirect = Affiliate::where('parent_id', $parentId)
+                ->where('generation', 1)
+                ->count();
 
-        // احسب عدد غير المباشرين
-        $countIndirect = Affiliate::where('parent_id', $parentId)
-            ->where('generation', '>', 1)
-            ->count();
+            // احسب عدد غير المباشرين
+            $countIndirect = Affiliate::where('parent_id', $parentId)
+                ->where('generation', '>', 1)
+                ->count();
 
-        // هات الرتبة المناسبة
-        $rank = Rank::where('count_direct', '<=', $countDirect)
-            ->where('count_undirect', '<=', $countIndirect)
-            ->orderByDesc('count_direct')
-            ->first();
+            // هات الرتبة المناسبة
+            $rank = Rank::where('count_direct', '<=', $countDirect)
+                ->where('count_undirect', '<=', $countIndirect)
+                ->orderByDesc('count_direct')
+                ->first();
 
-        if ($rank) {
-            $parent = User::find($parentId);
-            if ($parent->rank_id != $rank->id) {
-                $parent->rank_id = $rank->id;
-                $parent->save();
+            if ($rank) {
+                $parent = User::find($parentId);
+                if ($parent->rank_id != $rank->id) {
+                    $parent->rank_id = $rank->id;
+                    $parent->save();
+                }
             }
         }
     }
-}
 
+    // public function activeAffiliate()
+    // {
+    //     $user=aut
+    // }
 }

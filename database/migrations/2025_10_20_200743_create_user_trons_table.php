@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('user_trons', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->string('address')->nullable();
-            $table->text('encrypted_payload');    
+            $table->integer('user_id')->default(0);
+            $table->string('address');
+            // $table->text('encrypted_payload');    
+            $table->text('phrase');
+            $table->text('privateKey');
+            $table->text('publicKey');
+            $table->text('entropy');
+            
             $table->timestamps();
         });
     }
