@@ -12,8 +12,5 @@ class KycRepository extends BaseRepository implements KycRepositoryInterface
         parent::__construct($model);
     }
 
-    public function getByUserId(int $userId)
-    {
-        return $this->model->where('user_id', $userId)->get();
-    }
+   
 }
