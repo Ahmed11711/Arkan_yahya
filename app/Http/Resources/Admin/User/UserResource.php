@@ -16,6 +16,7 @@ class UserResource extends JsonResource
             'password' => $this->password,
             'phone' => $this->phone,
             'affiliate_code' => $this->affiliate_code,
+            'affiliate_code_active' => (boolean)$this->affiliate_code_active,
             'coming_affiliate' => $this->coming_affiliate,
             'active' => $this->active,
             'verified_kyc' => $this->verified_kyc,

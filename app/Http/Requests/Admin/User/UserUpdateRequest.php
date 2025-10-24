@@ -20,6 +20,8 @@ class UserUpdateRequest extends BaseRequest
             'password' => 'sometimes|required|string|max:255',
             'phone' => 'nullable|sometimes|string|max:255',
              'active' => 'sometimes|required|boolean',
+                         'affiliate_code_active'=>'sometimes|boolean',
+
             'verified_kyc' => 'sometimes|required|boolean',
             'type' => 'sometimes|required|in:user,guest',
          ];

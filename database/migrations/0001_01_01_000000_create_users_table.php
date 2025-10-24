@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->string('affiliate_code')->unique();
+            $table->boolean('affiliate_code_active')->default(false);
             $table->string('coming_affiliate')->nullable();
             $table->boolean('active')->default(true);
             $table->boolean('verified_kyc')->default(false);

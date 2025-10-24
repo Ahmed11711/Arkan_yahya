@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserRank\UserRankController;
+use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\UserKyc\UserKycController;
 use App\Http\Controllers\Admin\Withdraw\WithdrawController;
 use App\Http\Controllers\Admin\ads\adsController;
@@ -19,14 +21,20 @@ Route::prefix('admin/v1')->group(function () {
     Route::apiResource('blogs', BlogsController::class)->names('blogs');
     Route::apiResource('wallets', WalletController::class)->names('wallet');
     Route::apiResource('ads', adsController::class)->names('ads');
+    // Route::apiResource('ranks', RankController::class)->names('rank');
+    Route::apiResource('partners', PartnerController::class)->names('partner');
+    Route::apiResource('deposits', DepositController::class)->names('deposit');
+    Route::apiResource('withdraws', WithdrawController::class)->names('withdraw');
+    Route::apiResource('user_kycs', UserKycController::class)->names('user_kyc');
     Route::apiResource('ranks', RankController::class)->names('rank');
+    Route::apiResource('user_ranks', UserRankController::class)->names('user_rank');
+
+
  
 });
 
  
 
 Route::prefix('v1')->group(function () {
-    Route::apiResource('deposits', DepositController::class)->names('deposit');
-    Route::apiResource('withdraws', WithdrawController::class)->names('withdraw');
-    Route::apiResource('user_kycs', UserKycController::class)->names('user_kyc');
+ 
 });

@@ -46,8 +46,6 @@ Route::prefix('v1')->group(function () {
     //kyc
         Route::get('kyc', [KycController::class, 'index']);
         Route::get('Affiliate',[AffiliateController::class,'getByParent']);
-
-
     });
 
     Route::post('Affiliate',[AffiliateController::class,'index']);

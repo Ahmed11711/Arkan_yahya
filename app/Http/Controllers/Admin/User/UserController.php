@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Admin\User;
 
-use Illuminate\Http\Request; // لازم
-use Illuminate\Http\JsonResponse;
-use App\Http\Resources\Admin\User\UserResource;
+ use App\Http\Resources\Admin\User\UserResource;
 use App\Http\Requests\Admin\User\UserStoreRequest;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Http\Requests\Admin\User\UserUpdateRequest;

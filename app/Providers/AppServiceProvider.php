@@ -2,18 +2,21 @@
 
 namespace App\Providers;
 
+use App\Repositories\UserRank\UserRankRepositoryInterface;
+use App\Repositories\UserRank\UserRankRepository;
+
+use App\Repositories\Partner\PartnerRepositoryInterface;
+use App\Repositories\Partner\PartnerRepository;
+
+
 use App\Repositories\UserKyc\UserKycRepositoryInterface;
 use App\Repositories\UserKyc\UserKycRepository;
-
 use App\Repositories\Withdraw\WithdrawRepositoryInterface;
 use App\Repositories\Withdraw\WithdrawRepository;
-
 use App\Repositories\Deposit\DepositRepositoryInterface;
 use App\Repositories\Deposit\DepositRepository;
-
 use App\Repositories\Rank\RankRepositoryInterface;
 use App\Repositories\Rank\RankRepository;
-
 use App\Repositories\ads\adsRepositoryInterface;
 use App\Repositories\ads\adsRepository;
 
@@ -52,6 +55,8 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(DepositRepositoryInterface::class, DepositRepository::class);
         $this->app->bind(WithdrawRepositoryInterface::class, WithdrawRepository::class);
         $this->app->bind(UserKycRepositoryInterface::class, UserKycRepository::class);
+        $this->app->bind(PartnerRepositoryInterface::class, PartnerRepository::class);
+        $this->app->bind(UserRankRepositoryInterface::class, UserRankRepository::class);
 }
 
     /**
