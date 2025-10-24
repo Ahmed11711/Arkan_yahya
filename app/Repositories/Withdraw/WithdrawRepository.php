@@ -13,8 +13,5 @@ class WithdrawRepository extends BaseRepository implements WithdrawRepositoryInt
         parent::__construct($model);
     }
 
-      public function getByUserId($userId)
-        {
-         return $this->model->where('user_id', $userId)->get();
-        }
+      
 }
