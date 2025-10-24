@@ -46,8 +46,7 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function getByUserId($userId)
     {
-        return "dd";
-    return $this->model->where('user_id', $userId)->get();
+     return $this->model->where('user_id', $userId)->get();
 
     }
 
