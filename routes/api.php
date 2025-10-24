@@ -46,12 +46,16 @@ Route::prefix('v1')->group(function () {
 
     //kyc
     Route::get('kyc', [KycController::class, 'index']);
+    // ////////////////////Affiliate ////////////////
     Route::get('Affiliate',[AffiliateController::class,'getByParent']);
+    Route::post('Affiliate',[AffiliateController::class,'index']);
+    Route::post('active-affiliate',[AffiliateController::class,'activeAffiliate']);
+    // ////////////////////End Affiliate ////////////////
+
     Route::get('userSubscribe',[UserPlanController::class,'index']);
     Route::post('userSubscribe',[UserPlanController::class,'store']);
     });
 
-    Route::post('Affiliate',[AffiliateController::class,'index']);
 
 ////
 

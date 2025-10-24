@@ -97,8 +97,9 @@ class AffiliateController extends Controller
         }
     }
 
-    // public function activeAffiliate()
-    // {
-    //     $user=aut
-    // }
+    public function activeAffiliate(Request $request)
+    {
+     $user = $request->get('user'); 
+
+    }
 }

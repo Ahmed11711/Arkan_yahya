@@ -25,7 +25,7 @@ class UserPlanController extends Controller
     public function index(Request $request)
     {
         $user = $request->get('user');
-        return $plans = $this->userPlanRepository->getByUserId($user['id']);
+         $plans = $this->userPlanRepository->getByUserId($user['id']);
         return $this->successResponse(UserPlanResource::collection($plans), "All List Success");
     }
 
