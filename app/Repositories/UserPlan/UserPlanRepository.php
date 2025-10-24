@@ -13,8 +13,5 @@ class UserPlanRepository extends BaseRepository implements UserPlanRepositoryInt
         parent::__construct($model);
     }
 
-    public function getByUserId($userId)
-    {
-        
-    }
+  
 }
