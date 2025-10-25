@@ -131,15 +131,15 @@ abstract class BaseController extends Controller
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs("uploads/{$this->collectionName}", $filename, $this->uploadDisk);
 
-                // حذف الملف القديم إذا موجود
-                if ($existingRecord && !empty($existingRecord->$field)) {
+                 if ($existingRecord && !empty($existingRecord->$field)) {
                     Storage::disk($this->uploadDisk)
                         ->delete('uploads/'.$this->collectionName.'/'.basename($existingRecord->$field));
                 }
 
                 /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
-                $disk = Storage::disk($this->uploadDisk);
-                $validated[$field] = $disk->url($path);
+                // $disk = Storage::disk($this->uploadDisk);
+                $validated[$field] = "https://back.zayamrock.com/storage/app/public/" . $path;
+
 
             } catch (\Throwable $e) {
                 Log::error("File upload failed for field [{$field}] in {$this->collectionName}: " . $e->getMessage());
