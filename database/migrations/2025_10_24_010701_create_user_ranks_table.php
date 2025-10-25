@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('rank');
+            $table->integer('count_direct')->default(0);
+            $table->integer('count_indirect')->default(0);
+            $table->integer('count_direct_active')->default(0);
+            $table->integer('count_indirect_active')->default(0);
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\Affiliate\AffiliateController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
 use App\Http\Controllers\Api\CreateTron\CReateTRonController;
+use App\Http\Controllers\Api\UserPlan\AffiliateAfterSubscribe;
 
 Route::prefix('v1')->group(function () {
 
@@ -39,6 +40,8 @@ Route::prefix('v1')->group(function () {
 
     // middleware
     Route::middleware(JwtMiddleware::class)->group(function () {
+                Route::post('me', [RegisterController::class, 'me']);
+
     Route::get('deposit',[DepositController::class,'deposit']);
     Route::get('check-deposit',[DepositController::class,'checkDeposit']);
     // withdraw
@@ -55,6 +58,7 @@ Route::prefix('v1')->group(function () {
 
     Route::get('userSubscribe',[UserPlanController::class,'index']);
     Route::post('userSubscribe',[UserPlanController::class,'store']);
+    Route::post('affiliate-after-subscribe',[AffiliateAfterSubscribe::class,'activeParent']);
 
     });
 

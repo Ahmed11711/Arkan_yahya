@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\Auth;
 
 use Google_Client;
 use App\Models\User;
+use App\Models\userTron;
 use Illuminate\Support\Str;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
@@ -16,7 +18,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Login\LoginResource;
 use App\Http\Requests\Auth\LoginByGoogleRequest;
-use App\Models\userTron;
 
  class RegisterController extends Controller
 {
@@ -54,6 +55,13 @@ use App\Models\userTron;
         ], 'Login Successfully');
     }
 
+    public function me(Request $request)
+    {
+        $token = $request->get('user'); 
+        $user=User::find($token['id']);
+
+        return $this->successResponse(new LoginResource($user), 'User retrieved successfully.');
+    }   
     public function logout()
     {
         JWTAuth::invalidate(JWTAuth::getToken());

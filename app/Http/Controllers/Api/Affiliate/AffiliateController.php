@@ -49,6 +49,7 @@ class AffiliateController extends Controller
                 ->where('affiliate_code', $currentAffiliate)
                 ->first();
 
+
             if (!$parent) {
                 break;
             }
@@ -71,36 +72,7 @@ class AffiliateController extends Controller
         }
     }
 
-    public function updateParentRanks($userId)
-    {
-        $parents = Affiliate::where('user_id', $userId)->pluck('parent_id');
-
-        foreach ($parents as $parentId) {
-            // احسب عدد المباشرين
-            $countDirect = Affiliate::where('parent_id', $parentId)
-                ->where('generation', 1)
-                ->count();
-
-            // احسب عدد غير المباشرين
-            $countIndirect = Affiliate::where('parent_id', $parentId)
-                ->where('generation', '>', 1)
-                ->count();
-
-            // هات الرتبة المناسبة
-            $rank = Rank::where('count_direct', '<=', $countDirect)
-                ->where('count_undirect', '<=', $countIndirect)
-                ->orderByDesc('count_direct')
-                ->first();
-
-            if ($rank) {
-                $parent = User::find($parentId);
-                if ($parent->rank_id != $rank->id) {
-                    $parent->rank_id = $rank->id;
-                    $parent->save();
-                }
-            }
-        }
-    }
+   
 
  public function activeAffiliate(Request $request)
 {
