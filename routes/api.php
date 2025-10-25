@@ -62,6 +62,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::post('Affiliate',[AffiliateController::class,'index']);
+    ///
     Route::post('received-tron',[CReateTRonController::class,'store']);
     Route::get('received-tron',[CReateTRonController::class,'store']);
 
