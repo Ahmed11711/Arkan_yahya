@@ -52,7 +52,6 @@ Route::prefix('v1')->group(function () {
     Route::get('kyc', [KycController::class, 'index']);
     // ////////////////////Affiliate ////////////////
     Route::get('Affiliate',[AffiliateController::class,'getByParent']);
-    Route::post('Affiliate',[AffiliateController::class,'index']);
     Route::post('active-affiliate',[AffiliateController::class,'activeAffiliate']);
     // ////////////////////End Affiliate ////////////////
 
@@ -62,6 +61,7 @@ Route::prefix('v1')->group(function () {
 
     });
 
+    Route::post('Affiliate',[AffiliateController::class,'index']);
     Route::post('received-tron',[CReateTRonController::class,'store']);
     Route::get('received-tron',[CReateTRonController::class,'store']);
 
