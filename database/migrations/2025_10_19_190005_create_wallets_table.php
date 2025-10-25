@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_en')->nullable();
             $table->text('desc');
+            $table->text('desc_en')->nullable();
             $table->decimal('amount', 12, 2);
             $table->decimal('profit_rate', 5, 2); 
             $table->integer('profit_cycle');// take profit each 30 days

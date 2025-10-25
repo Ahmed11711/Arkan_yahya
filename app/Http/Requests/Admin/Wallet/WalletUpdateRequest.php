@@ -13,7 +13,9 @@ class WalletUpdateRequest extends BaseRequest
     {
         return [
             'name' => 'sometimes|required|string|max:255',
+            'name_en' => 'nullable|sometimes|string|max:255',
             'desc' => 'sometimes|required|string',
+            'desc_en' => 'nullable|sometimes|string',
             'amount' => 'sometimes|required|numeric',
             'profit_rate' => 'sometimes|required|numeric',
             'profit_cycle' => 'sometimes|required|integer',

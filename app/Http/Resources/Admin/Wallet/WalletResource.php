@@ -11,7 +11,9 @@ class WalletResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'name_en' => $this->name_en ?? $this->name,
             'desc' => $this->desc,
+            'desc_en' => $this->desc_en ?? $this->desc,
             'amount' => $this->amount,
             'profit_rate' => $this->profit_rate,
             'profit_cycle' => $this->profit_cycle,
