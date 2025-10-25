@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id')->default(0);
             $table->string('address');
-            // $table->text('encrypted_payload');    
-            $table->text('phrase');
-            $table->text('privateKey');
-            $table->text('publicKey');
-            $table->text('entropy');
+            $table->text('encrypted_payload');    
+            // $table->text('phrase');
+            // $table->text('privateKey');
+            // $table->text('publicKey');
+            // $table->text('entropy');
             
             $table->timestamps();
         });

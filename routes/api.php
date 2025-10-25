@@ -8,11 +8,12 @@ use App\Http\Controllers\Api\Blogs\BlogController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Deposit\DepositController;
 use App\Http\Controllers\Api\Service\ServiceController;
+use App\Http\Controllers\Api\UserPlan\UserPlanController;
 use App\Http\Controllers\Api\Withdraw\WithdrawController;
 use App\Http\Controllers\Api\Affiliate\AffiliateController;
 use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
-use App\Http\Controllers\Api\UserPlan\UserPlanController;
+use App\Http\Controllers\Api\CreateTron\CReateTRonController;
 
 Route::prefix('v1')->group(function () {
 
@@ -54,8 +55,10 @@ Route::prefix('v1')->group(function () {
 
     Route::get('userSubscribe',[UserPlanController::class,'index']);
     Route::post('userSubscribe',[UserPlanController::class,'store']);
+
     });
 
+    Route::post('received-tron',[CReateTRonController::class,'store']);
 
 ////
 
