@@ -14,7 +14,9 @@
             Schema::create('services', function (Blueprint $table) {
                 $table->id();
                 $table->string('title');
+                $table->string('title_en')->nullable();
                 $table->text('desc');
+                $table->text('desc_en')->nullable();
                 $table->string('img')->nullable();
                 $table->boolean('push');
                 $table->date('push_date'); //for i will active it after 5 days

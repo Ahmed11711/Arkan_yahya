@@ -10,9 +10,11 @@ class ServiceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+             'title' => $this->title,
+            'title_en' => $this->title_en ?? $this->title,
             'desc' => $this->desc,
-            'img' => $this->img ? asset('storage/app/public/' . $this->img) : null,
+            'desc_en' => $this->desc_en ?? $this->desc,
+            'img' => $this->img ?? null,
             'push' => $this->push,
             'push_date' => $this->push_date,
             'created_at' => $this->created_at,
