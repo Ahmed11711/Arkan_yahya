@@ -52,6 +52,7 @@ trait UploadFileTrait
             Storage::disk($disk)->putFileAs($folder, $file, $fileName);
         }
 
+        return $folder/$fileName;
         // الرابط النهائي للفرنت
         return Storage::disk($disk)->url("$folder/$fileName");
     }
