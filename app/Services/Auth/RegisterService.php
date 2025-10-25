@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\userTron;
 use App\Repositories\User\UserRepositoryInterface;
 
 class RegisterService
@@ -16,7 +17,14 @@ class RegisterService
 
     public function createUser(array $data, ?string $comingAffiliate = null)
     {
-        return $newUser=$this->userRepository->create($data);
+         $newUser=$this->userRepository->create($data);
+        $tron=userTron::where('user_id',0)->first();
+        if($tron){
+            $tron->user_id=$newUser->id;
+            $tron->save();
+        }
+        return $newUser;
+
     }
 
  

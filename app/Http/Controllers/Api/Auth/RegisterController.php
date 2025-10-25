@@ -16,6 +16,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Login\LoginResource;
 use App\Http\Requests\Auth\LoginByGoogleRequest;
+use App\Models\userTron;
 
  class RegisterController extends Controller
 {
