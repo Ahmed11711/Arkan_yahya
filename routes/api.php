@@ -40,7 +40,7 @@ Route::prefix('v1')->group(function () {
 
     // middleware
     Route::middleware(JwtMiddleware::class)->group(function () {
-                Route::post('me', [RegisterController::class, 'me']);
+                Route::get('me', [RegisterController::class, 'me']);
 
     Route::get('deposit',[DepositController::class,'deposit']);
     Route::get('check-deposit',[DepositController::class,'checkDeposit']);
