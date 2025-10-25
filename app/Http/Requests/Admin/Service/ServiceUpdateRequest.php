@@ -13,8 +13,10 @@ class ServiceUpdateRequest extends BaseRequest
     {
         return [
             'title' => 'sometimes|required|string|max:255',
+            'title_en' => 'nullable|string|max:255',
             'desc' => 'sometimes|required|string',
-    'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'desc_en' => 'nullable|string',
+            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'push' => 'sometimes|required|integer',
             'push_date' => 'sometimes|required|date',
         ];
