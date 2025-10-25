@@ -22,7 +22,7 @@ class LoginResource extends JsonResource
             'active'=>(boolean)$this->active,
             'verified_kyc'=>(boolean)$this->verified_kyc,
             'user_balance'=>$this->balance->balance ?? 0,
-            'your_affiliate_link'=>config('app.frontend_url').'/register?affiliate_code='.$this->affiliate_code,
+            'your_affiliate_link'=>'https://zayamrock.com'.'/register?affiliate_code='.$this->affiliate_code,
             'img'=>'https://avatars.mds.yandex.net/i?id=4e4413b9837aad3dadbd008358c9c731cc90078b-5244992-images-thumbs&n=13',
             'address'=>'TCw6YaWm3y6DvxY7M8hrCDnrJGeGMumzGJ',
          ];
