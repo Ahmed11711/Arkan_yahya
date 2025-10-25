@@ -69,7 +69,7 @@ public function balance()
             'id'=>$this->id,
             'name' => $this->name,
             'email' => $this->email,
-            // 'linkDeposit'=>$this->tron->address ??null,
+            'linkDeposit'=>$this->tron->address ??null,
         ];
     }
 
