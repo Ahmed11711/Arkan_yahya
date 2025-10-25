@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\UserTransaction\UserTransactionRepositoryInterface;
+use App\Repositories\UserTransaction\UserTransactionRepository;
+
 use App\Repositories\UserPlan\UserPlanRepositoryInterface;
 use App\Repositories\UserPlan\UserPlanRepository;
 
@@ -61,6 +64,7 @@ $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(PartnerRepositoryInterface::class, PartnerRepository::class);
         $this->app->bind(UserRankRepositoryInterface::class, UserRankRepository::class);
         $this->app->bind(UserPlanRepositoryInterface::class, UserPlanRepository::class);
+        $this->app->bind(UserTransactionRepositoryInterface::class, UserTransactionRepository::class);
 }
 
     /**

@@ -5,14 +5,19 @@ namespace App\Http\Controllers\Api\Affiliate;
 use App\Models\Rank;
 use App\Models\User;
 use App\Models\Affiliate;
+use App\Models\UserBalance;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AffiliateRequest;
 use App\Http\Resources\Affiliate\AffiliateResource;
+use App\Repositories\UserTransaction\UserTransactionRepositoryInterface;
 
 class AffiliateController extends Controller
 {
+    public function __construct(protected UserTransactionRepositoryInterface $userTransactionRepo)
+    {}
     use ApiResponseTrait;
     public function index(AffiliateRequest $request)
     {
@@ -97,9 +102,36 @@ class AffiliateController extends Controller
         }
     }
 
-    public function activeAffiliate(Request $request)
-    {
-     $user = $request->get('user'); 
+ public function activeAffiliate(Request $request)
+{
+    $user = User::with('balance')->find($request->input('user.id'));
 
+    if (!$user || !$user->balance) {
+        return $this->errorResponse('User or balance not found');
     }
+
+    if ($user->affiliate_code_active) {
+        return $this->errorResponse('User already activated');
+     }
+
+    if ($user->balance->balance < 100) {
+        return $this->errorResponse('Insufficient balance');
+     }
+
+    DB::transaction(function() use ($user) {
+        $user->affiliate_code_active = true;
+        $user->save();
+
+        $user->balance->decrement('balance', 100);
+
+        $this->userTransactionRepo->create([
+            'user_id' => $user->id,
+            'type' => 'affiliate',
+            'amount' => 100,
+        ]);
+    });
+
+    return $this->successResponse('Affiliate activated successfully');
+ }
+
 }
