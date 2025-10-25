@@ -9,8 +9,7 @@ use Illuminate\Support\Str;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Log;
+ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use App\Services\Auth\RegisterService;
@@ -18,6 +17,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Login\LoginResource;
 use App\Http\Requests\Auth\LoginByGoogleRequest;
+use Illuminate\Http\Request;
 
  class RegisterController extends Controller
 {
