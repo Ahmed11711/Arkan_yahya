@@ -104,7 +104,9 @@ class AffiliateController extends Controller
 
  public function activeAffiliate(Request $request)
 {
-    $user = User::with('balance')->find($request->input('user.id'));
+    
+    $token = $request->get('user'); 
+    $user = User::with('balance')->find($token['id']);
 
     if (!$user || !$user->balance) {
         return $this->errorResponse('User or balance not found');
