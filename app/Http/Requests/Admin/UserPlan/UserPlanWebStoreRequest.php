@@ -10,6 +10,7 @@ class UserPlanWebStoreRequest extends BaseRequest
     {
         return [
              'wallet_id' => 'required|integer|exists:wallets,id',
+             'count_unite' => 'nullable|integer',
          
         ];
     }

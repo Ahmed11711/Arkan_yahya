@@ -24,8 +24,21 @@ class VerificationCodeController extends Controller
 
     public function sendOtp(VerificationRequest $request)
     {
+        
         $data = $request->validated();
-        $sendOtp = $this->verificationService->sendOtp($data['method'],'register', $data['user_id']);
+        $user=$this->userRepository->find($data['user_id']);
+        if($data['method']=='email')
+        {
+            $recipient=$user['email'];
+        }if($data['method']=='sms')
+        {
+            $recipient=$user['phone'];
+        }if($data['method']=='app')
+        {
+            $recipient=null;
+        }
+
+        $sendOtp = $this->verificationService->sendOtp($data['method'],'register',$recipient, $data['user_id']);
         return $this->successResponse($sendOtp, 'OTP sent successfully.');
     }
 

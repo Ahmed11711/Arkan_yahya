@@ -25,6 +25,7 @@ class WalletUpdateRequest extends BaseRequest
             'status' => 'sometimes|required|in:active,completed,pending',
             'early_withdraw_penalty' => 'nullable|sometimes|numeric',
     'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'minimum_count' => 'nullable|sometimes|integer',
             'service_id' => 'sometimes|required|integer|exists:services,id',
         ];
     }

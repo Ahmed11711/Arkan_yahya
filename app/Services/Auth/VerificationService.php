@@ -2,8 +2,11 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Repositories\UserTwoFactor\UserTwoFactorRepositoryInterface;
 use App\Services\SendOtp\SendOtpService;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\In;
 use PragmaRX\Google2FA\Google2FA;
 
 
@@ -17,10 +20,10 @@ class VerificationService
         public SendOtpService $sendOtpService,
     ) {}
 
-    public function sendOtp(string $method,$type, int $userId)
+    public function sendOtp(string $method,$type, $recipient,Int $userId)
     {
-        $otp = $this->generateOtp();
-        $this->sendOtpToMethod($method, $otp);
+        $otp = $this->generateOtp();        
+         $this->sendOtpToMethod($recipient,$otp,$method);
         $store = $this->storeInDb($method,$type, $otp, $userId);
         return $store;
     }
@@ -31,15 +34,15 @@ class VerificationService
         return rand(100000, 999999); // 6-digit OTP
     }
 
-    protected function sendOtpToMethod(string $recipient, int $otp, string $method = 'sms'): void
+    protected function sendOtpToMethod(string $recipient, int $otp, string $method = 'email')
     {
-        switch ($method) {
+          switch ($method) {
             case 'sms':
                 $this->sendOtpService->sendSms($recipient, $otp);
                 break;
 
             case 'email':
-                $this->sendOtpService->sendEmail($recipient, $otp);
+                 $this->sendOtpService->sendEmail($recipient, $otp);
                 break;
 
             case 'app':

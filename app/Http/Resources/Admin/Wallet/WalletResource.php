@@ -23,6 +23,7 @@ class WalletResource extends JsonResource
             'status' => $this->status,
             'early_withdraw_penalty' => $this->early_withdraw_penalty,
             'img' => $this->img,
+            'minimum_count' => $this->minimum_count ?? 5,
             'serviceName' => $this->service->title ?? "service",
               'created_at' => $this->push_date?->format('Y-m-d'), // ←  
             'updated_at' => $this->push_date?->format('Y-m-d'), // ←  

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->boolean('commission_distributed')->default(false);
 
-
+            $table->integer('count_unite')->nullable();
             $table->timestamps();
         });
     }

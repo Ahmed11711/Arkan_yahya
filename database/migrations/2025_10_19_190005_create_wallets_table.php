@@ -26,6 +26,7 @@ return new class extends Migration
             $table->enum('status',['active','completed','pending'])->default('active');
             $table->decimal('early_withdraw_penalty')->nullable();
             $table->string('img')->nullable();
+            $table->integer('minimum_count')->default(1);
             $table->integer('service_id');
 
             $table->timestamps();

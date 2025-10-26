@@ -61,6 +61,7 @@ class UserPlanController extends Controller
                     'transaction_id' => uniqid('txn_'),
                     'start_date'     => now(),
                     'end_date'       => now()->addMonths($wallet->duration_months ?? 1),
+                    // 'count_unite'  => $data['count_unite'] ?? null,
                 ]);
 
                 return $plan;
