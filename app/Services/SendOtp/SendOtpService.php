@@ -65,7 +65,7 @@ class SendOtpService
     ];
 
     $response = Http::withHeaders([
-        'Authorization' => 'Bearer ' . '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',
+        'Authorization' => 'Bearer ' . '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',
         'Content-Type' => 'application/json'
     ])->post($url, $data);
 

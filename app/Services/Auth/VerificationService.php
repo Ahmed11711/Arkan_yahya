@@ -71,6 +71,7 @@ class VerificationService
             'expires_at' => now()->addMinutes(5),
 
         ];
+        
 
         $this->userTwoFactor->createOrUpdate($data);
         if($method === 'app')

@@ -35,7 +35,7 @@ class VerificationCodeController extends Controller
             $recipient=$user['phone'];
         }if($data['method']=='app')
         {
-            $recipient=null;
+            $recipient=1;
         }
 
         $sendOtp = $this->verificationService->sendOtp($data['method'],'register',$recipient, $data['user_id']);
