@@ -42,7 +42,7 @@ class AuthController extends Controller
 
         $google2fa = new Google2FA();
 
-        if (! $google2fa->verifyKey($userTwoFactor->qr_code, $data['otp_code'])) {
+        if (! $google2fa->verifyKey($userTwoFactor->qr_code, $data['otp'])) {
             return $this->errorResponse('Invalid 2FA code.', 401);
         }
 

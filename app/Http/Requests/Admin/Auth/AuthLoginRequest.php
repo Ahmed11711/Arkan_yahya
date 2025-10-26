@@ -15,7 +15,7 @@ class AuthLoginRequest extends BaseRequest
         return [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
-            'otp_code' => 'nullable|string|min:6|max:6',
+            'otp' => 'nullable|string|min:6|max:6',
         ];
     }
 }
