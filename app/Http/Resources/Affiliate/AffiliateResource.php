@@ -20,7 +20,6 @@ class AffiliateResource extends JsonResource
                 'active' => $this->active,
                 'affiliate_code'=>$this->user?->affiliate_code ?? null,
                 'your_affiliate_link'=>'https://zayamrock.com'.'/auth?affiliate_code='.$this->user?->affiliate_code ?? null,
-
                 'block' => $this->block,
                 'money' => $this->moony,
                 'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
