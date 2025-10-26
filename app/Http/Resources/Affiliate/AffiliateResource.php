@@ -19,7 +19,7 @@ class AffiliateResource extends JsonResource
                 'generation' => $this->generation,
                 'active' => $this->active,
                 'affiliate_code'=>$this->user?->affiliate_code ?? null,
-                'your_affiliate_link'=>'https://zayamrock.com'.'/auth?affiliate_code='.$this->affiliate_code,
+                'your_affiliate_link'=>'https://zayamrock.com'.'/auth?affiliate_code='.$this->affiliate_code ?? null,
 
                 'block' => $this->block,
                 'money' => $this->moony,
