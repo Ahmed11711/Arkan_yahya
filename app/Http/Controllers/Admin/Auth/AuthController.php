@@ -53,7 +53,7 @@ class AuthController extends Controller
         $cookie = cookie(
             'access_token',
             $jwt,
-JWTAuth::factory()->getTTL() * 60,
+            JWTAuth::factory()->getTTL() * 60,
             '/',       // المسار
             null,      // الدومين (افتراضي)
             true,      // Secure: فقط عبر HTTPS
@@ -98,4 +98,6 @@ JWTAuth::factory()->getTTL() * 60,
 
         return $this->successResponse($user);
     }
+
+    
 }
