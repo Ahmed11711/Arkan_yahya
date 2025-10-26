@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin\Auth;
 
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class AuthController extends Controller
     public function login(AuthLoginRequest $request)
     {
         $data = $request->validated();
+
         $credentials = $request->only('email', 'password');
-        $code = $data['otp_code'] ?? null;
 
         if (! $token = JWTAuth::attempt($credentials)) {
             return $this->errorResponse('Invalid credentials', 401);
@@ -25,66 +26,76 @@ class AuthController extends Controller
 
         $user = auth()->user();
 
-        // تحقق أن المستخدم Admin فعلاً
+        // ✅ السماح فقط للأدمن
         if ($user->type !== 'admin') {
-            return $this->errorResponse('Access denied.', 403);
+            return $this->errorResponse('Access denied', 403);
         }
 
-        // تحقق من كود 2FA
+        // ✅ تحقق من كود 2FA
         $userTwoFactor = UserTwoFactor::where('user_id', $user->id)
             ->where('method', 'app')
             ->first();
 
         if (! $userTwoFactor) {
-            return $this->errorResponse('2FA not set up for this user', 400);
+            return $this->errorResponse('2FA not enabled for this account.', 403);
         }
 
         $google2fa = new Google2FA();
-        $isValid = $google2fa->verifyKey($userTwoFactor->qr_code, $code);
 
-        if (! $isValid) {
-            return $this->errorResponse('Invalid 2FA code', 403);
+        if (! $google2fa->verifyKey($userTwoFactor->qr_code, $data['otp_code'])) {
+            return $this->errorResponse('Invalid 2FA code.', 401);
         }
 
-        // إنشاء الكوكي
+        // ✅ توليد JWT
+        $jwt = JWTAuth::fromUser($user);
+
+        // ✅ تخزين التوكن في كوكي آمن (HTTP-only)
         $cookie = cookie(
-            'jwt_token',    // اسم الكوكي
-            $token,         // القيمة
-            60 * 24,        // المدة بالدقائق (يوم كامل)
-            '/',            // المسار
-            null,           // الدومين (اتركه null لو نفس الدومين)
-            true,           // Secure: فقط HTTPS
-            true,           // HttpOnly: لا يمكن الوصول له من JS
-            false,          // Raw
-            'Strict'        // SameSite
+            'access_token',
+            $jwt,
+JWTAuth::factory()->getTTL() * 60,
+            '/',       // المسار
+            null,      // الدومين (افتراضي)
+            true,      // Secure: فقط عبر HTTPS
+            true       // HttpOnly: لا يمكن قراءته من JavaScript
         );
 
+        // ✅ استجابة النجاح
         return response()->json([
             'message' => 'Login successful',
-            'user' => $user->only(['id', 'name', 'email'])
+            'user' => $user,
         ])->cookie($cookie);
     }
 
-    public function logout()
+    // ✅ تسجيل الخروج
+    public function logout(Request $request)
     {
-        try {
-            JWTAuth::invalidate(JWTAuth::getToken());
-        } catch (\Exception $e) {
-            // تجاهل أي خطأ
+        $token = $request->cookie('access_token');
+        if ($token) {
+            JWTAuth::setToken($token)->invalidate();
         }
 
-        return response()
-            ->json(['message' => 'Logged out'])
-            ->cookie('jwt_token', '', -1); // حذف الكوكي
+        // حذف الكوكي
+        $cookie = cookie()->forget('access_token');
+
+        return response()->json(['message' => 'Logged out successfully'])->cookie($cookie);
     }
 
+    // ✅ اختبار المستخدم المسجل (للتحقق من الجلسة)
     public function me(Request $request)
     {
-        try {
-            $user = JWTAuth::parseToken()->authenticate();
-            return $this->successResponse(['user' => $user]);
-        } catch (\Exception $e) {
-            return $this->errorResponse('Unauthenticated', 401);
+        $token = $request->cookie('access_token');
+
+        if (! $token) {
+            return $this->errorResponse('No token found', 401);
         }
+
+        try {
+            $user = JWTAuth::setToken($token)->authenticate();
+        } catch (\Exception $e) {
+            return $this->errorResponse('Invalid token', 401);
+        }
+
+        return $this->successResponse($user);
     }
 }
