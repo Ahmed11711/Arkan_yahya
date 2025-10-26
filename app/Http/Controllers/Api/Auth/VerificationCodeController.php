@@ -71,7 +71,7 @@ class VerificationCodeController extends Controller
        {
         return $this->errorResponse("The User Not Found");
        }
-       $sendOtp = $this->verificationService->sendOtp($data['method'],'restPassword', $user['id']);
+       $sendOtp = $this->verificationService->sendOtp($data['method'],'restPassword',$user->email, $user['id']);
        return $this->successResponse($sendOtp, 'OTP sent successfully.');
  
 
