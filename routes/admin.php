@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\Service\ServiceController;
 
 Route::prefix('admin/v1')->group(function () {
     
+    Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
 //////////////////////
     Route::apiResource('users', UserController::class)->names('user');
     Route::apiResource('services', ServiceController::class)->names('service');
