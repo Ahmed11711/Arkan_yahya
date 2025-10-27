@@ -17,6 +17,7 @@ class UserPlanResource extends JsonResource
             'transaction_id' => $this->transaction_id,
             'status' => $this->status,
             'price' => $this->price,
+            'count_unite' => $this->count_unite,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
