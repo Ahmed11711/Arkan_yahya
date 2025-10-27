@@ -14,6 +14,8 @@ class ServiceResource extends JsonResource
             'title_en' => $this->title_en ?? $this->title,
             'desc' => $this->desc,
             'desc_en' => $this->desc_en ?? $this->desc,
+            'about_desc' => $this->about_desc,
+            'about_desc_en' => $this->about_desc_en ?? $this->about_desc,
             'img' => $this->img ?? null,
             'push' => $this->push,
             'push_date' => $this->push_date,

@@ -17,6 +17,8 @@
                 $table->string('title_en')->nullable();
                 $table->text('desc');
                 $table->text('desc_en')->nullable();
+                $table->text('about_desc')->nullable();
+                $table->text('about_desc_en')->nullable();
                 $table->string('img')->nullable();
                 $table->boolean('push');
                 $table->date('push_date'); //for i will active it after 5 days

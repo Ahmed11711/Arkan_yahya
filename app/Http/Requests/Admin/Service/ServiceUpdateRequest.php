@@ -16,6 +16,8 @@ class ServiceUpdateRequest extends BaseRequest
             'title_en' => 'nullable|string|max:255',
             'desc' => 'sometimes|required|string',
             'desc_en' => 'nullable|string',
+            'about_desc_en' => 'nullable|string',
+            'about_desc' => 'nullable|string',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'push' => 'sometimes|required|integer',
             'push_date' => 'sometimes|required|date',

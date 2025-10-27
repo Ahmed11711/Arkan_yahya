@@ -17,7 +17,7 @@ class WalletUpdateRequest extends BaseRequest
             'desc' => 'sometimes|required|string',
             'desc_en' => 'nullable|sometimes|string',
             'amount' => 'sometimes|required|numeric',
-            'profit_rate' => 'sometimes|required|numeric',
+            'profit_rate' => 'sometimes|required|string',
             'profit_cycle' => 'sometimes|required|integer',
             'duration_months' => 'nullable|sometimes|integer',
             'capital_return' => 'sometimes|required|integer',

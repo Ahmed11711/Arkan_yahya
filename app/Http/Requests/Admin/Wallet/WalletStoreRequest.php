@@ -17,7 +17,7 @@ class WalletStoreRequest extends BaseRequest
             'desc' => 'required|string',
             'desc_en' => 'nullable|string',
             'amount' => 'required|numeric',
-            'profit_rate' => 'required|numeric',
+            'profit_rate' => 'required|string',
             'profit_cycle' => 'required|integer',
             'duration_months' => 'nullable|integer',
             'capital_return' => 'required|integer',

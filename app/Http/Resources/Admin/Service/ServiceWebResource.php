@@ -15,6 +15,8 @@ class ServiceWebResource extends JsonResource
             'title_en' => $this->title_en ?? $this->title,
             'desc' => $this->desc,
             'desc_en' => $this->desc_en ?? $this->desc,
+            'about_desc_en'=> $this->about_desc_en ?? $this->about_desc,
+            'about_desc'=> $this->about_desc,
             'img' => $this->img  ?? "https://www.luxurylifestylemag.co.uk/wp-content/uploads/2020/11/bigstock-Investment-Glass-Jar-With-Coi-382984313.jpg",
             'plans' => WalletResource::collection($this->wallets),
             /////ddddd

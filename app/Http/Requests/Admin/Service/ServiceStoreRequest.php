@@ -16,6 +16,8 @@ class ServiceStoreRequest extends BaseRequest
             'title_en' => 'nullable|string|max:255',
             'desc' => 'required|string',
             'desc_en' => 'nullable|string',
+            'about_desc_en' => 'nullable|string',
+            'about_desc' => 'nullable|string',
     'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'push' => 'required|integer',
             'push_date' => 'required|date',

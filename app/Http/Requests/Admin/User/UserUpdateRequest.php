@@ -17,10 +17,10 @@ class UserUpdateRequest extends BaseRequest
             'name' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|required|string|max:255|unique:users,email,'.$this->route('user').',id',
             'email_verified_at' => 'nullable|sometimes|date',
-            'password' => 'sometimes|required|string|max:255',
+            // 'password' => 'sometimes|required|string|max:255',
             'phone' => 'nullable|sometimes|string|max:255',
-             'active' => 'sometimes|required|boolean',
-                         'affiliate_code_active'=>'sometimes|boolean',
+            'active' => 'sometimes|required|boolean',
+            'affiliate_code_active'=>'sometimes|boolean',
 
             'verified_kyc' => 'sometimes|required|boolean',
             'type' => 'sometimes|required|in:user,guest',

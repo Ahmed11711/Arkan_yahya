@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('desc');
             $table->text('desc_en')->nullable();
             $table->decimal('amount', 12, 2);
-            $table->decimal('profit_rate', 5, 2); 
+            $table->string('profit_rate'); 
             $table->integer('profit_cycle');// take profit each 30 days
             $table->integer('duration_months')->nullable();
             $table->boolean('capital_return');
