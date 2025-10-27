@@ -8,6 +8,7 @@ use App\Models\Affiliate;
 use App\Models\Rank;
 use App\Models\UserRank;
 use App\Models\UserBalance;
+use App\Models\UserPlan;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,8 +19,12 @@ class AffiliateAfterSubscribe extends Controller
     {
         $user = $request->get('user');
         $walletId = $request->input('wallet_id');
-        $planPrice = Wallet::where('id', $walletId)->value('amount');
-
+        $planPrice = UserPlan::where([
+            'wallet_id' => $walletId,
+            'user_id' => $user['id'],
+          ])
+            ->orderBy('id', 'desc') // أو orderBy('created_at', 'desc')
+            ->value('amount');
         DB::transaction(function () use ($user, $planPrice) {
             $parentIds = Affiliate::where('user_id', $user['id'])->pluck('parent_id');
             Log::info('Parent IDs fetched', ['parent_ids' => $parentIds]);
@@ -37,8 +42,7 @@ class AffiliateAfterSubscribe extends Controller
                 ->orderByDesc('count_undirect')
                 ->get();
 
-            // ✅ المرور على كل أب
-            foreach ($parentIds as $parentId) {
+             foreach ($parentIds as $parentId) {
                 $countDirect = Affiliate::where('parent_id', $parentId)
                     ->where('active', true)
                     ->where('generation', 1)
@@ -49,8 +53,7 @@ class AffiliateAfterSubscribe extends Controller
                     ->where('generation', '>', 1)
                     ->count();
 
-                // ✅ تحديد الرتبة المناسبة
-                $rank = $ranks->first(function ($r) use ($countDirect, $countIndirect) {
+                 $rank = $ranks->first(function ($r) use ($countDirect, $countIndirect) {
                     return $r->count_direct <= $countDirect && $r->count_undirect <= $countIndirect;
                 });
 
@@ -114,7 +117,7 @@ class AffiliateAfterSubscribe extends Controller
                     // 🔹 نضيف المبلغ في عمود amount
                     $affiliate->increment('moony', $amount);
 
-  
+
                     Log::info('Affiliate updated with profit', [
                         'parent_id' => $parentId,
                         'user_id' => $subscribedUserId,
