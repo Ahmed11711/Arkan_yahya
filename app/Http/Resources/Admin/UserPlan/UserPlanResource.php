@@ -10,7 +10,7 @@ class UserPlanResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user_id' => $this->user->name ?? null,
             'wallet_name' => $this->wallet->name ?? null,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,

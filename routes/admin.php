@@ -32,13 +32,13 @@ Route::prefix('admin/v1')->group(function () {
     Route::apiResource('user_kycs', UserKycController::class)->names('user_kyc');
     Route::apiResource('ranks', RankController::class)->names('rank');
     Route::apiResource('user_ranks', UserRankController::class)->names('user_rank');
-
+    Route::apiResource('user_plans', UserPlanController::class)->names('user_plan');
+    Route::apiResource('user_transactions', UserTransactionController::class)->names('user_transaction');
 });
 
  
 
 Route::prefix('v1')->group(function () {
  
-    Route::apiResource('user_plans', UserPlanController::class)->names('user_plan');
-    Route::apiResource('user_transactions', UserTransactionController::class)->names('user_transaction');
+
 });
