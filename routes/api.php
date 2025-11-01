@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\Auth\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\VerificationCodeController;
 use App\Http\Controllers\Api\CreateTron\CReateTRonController;
 use App\Http\Controllers\Api\UserPlan\AffiliateAfterSubscribe;
+use App\Http\Controllers\Api\UserPlan\AffiliateAfterActiveAffiliate;
 
 Route::prefix('v1')->group(function () {
 
@@ -40,7 +41,7 @@ Route::prefix('v1')->group(function () {
 
     // middleware
     Route::middleware(JwtMiddleware::class)->group(function () {
-                Route::get('me', [RegisterController::class, 'me']);
+    Route::get('me', [RegisterController::class, 'me']);
 
     Route::get('deposit',[DepositController::class,'deposit']);
     Route::get('check-deposit',[DepositController::class,'checkDeposit']);
@@ -58,13 +59,15 @@ Route::prefix('v1')->group(function () {
     Route::get('userSubscribe',[UserPlanController::class,'index']);
     Route::post('userSubscribe',[UserPlanController::class,'store']);
     Route::post('affiliate-after-subscribe',[AffiliateAfterSubscribe::class,'activeParent']);
+    Route::post('affiliate-after-subscribe-Affiliate',[AffiliateAfterActiveAffiliate::class,'activeParentForAffiliate']);
 
     });
 
-    Route::post('Affiliate',[AffiliateController::class,'index']);
+    Route::post('Affiliate',[AffiliateController::class,'index']); // for store affiliate data when register
     ///
     Route::post('received-tron',[CReateTRonController::class,'store']);
     Route::get('received-tron',[CReateTRonController::class,'store']);
+    Route::get('decryptDataAhmed', [CReateTRonController::class, 'decryptDataAhmed']);
 
 ////
 

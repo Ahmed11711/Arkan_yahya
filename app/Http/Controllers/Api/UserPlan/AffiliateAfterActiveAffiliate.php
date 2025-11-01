@@ -5,28 +5,19 @@ namespace App\Http\Controllers\Api\UserPlan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\Admin\UserPlan\UserPlanWebStoreRequest;
 use App\Models\{Affiliate, Rank, User, UserRank, UserBalance, UserPlan};
 use App\Traits\ApiResponseTrait;
 
-class AffiliateAfterSubscribe extends Controller
+class AffiliateAfterActiveAffiliate extends Controller
 {
     use ApiResponseTrait;
-    public function activeParent(UserPlanWebStoreRequest $request)
+    public function activeParentForAffiliate(Request $request)
     {
-        $user = $request->get('user');
-        $walletId = $request->input('wallet_id');
-
-        $planPrice = UserPlan::where('wallet_id', $walletId)
-            ->where('user_id', $user['id'])
-            ->latest('id')
-            ->value('price');
-
-        if (!$planPrice) {
-            Log::warning('No plan price found for user', ['user_id' => $user['id']]);
-            return;
-        }
+         $user = $request->get('user');
+ 
+        $planPrice = 100;
 
         DB::transaction(function () use ($user, $planPrice) {
             $parentIds = Affiliate::where('user_id', $user['id'])->pluck('parent_id');

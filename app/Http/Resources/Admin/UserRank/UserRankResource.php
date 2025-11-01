@@ -10,7 +10,7 @@ class UserRankResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user->name,
+            'user_id' => $this->user->name ?? null,
             'rank' => $this->rank,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

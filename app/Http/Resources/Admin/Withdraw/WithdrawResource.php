@@ -10,7 +10,7 @@ class WithdrawResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user_id' => $this->user->name ?? null,
             'transaction_id' => $this->transaction_id,
             'address' => $this->address,
             'symbol' => $this->symbol,

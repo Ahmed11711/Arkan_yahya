@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Affiliate;
 
 use App\Models\Rank;
 use App\Models\User;
+use App\Models\UserRank;
 use App\Models\Affiliate;
 use App\Models\UserBalance;
 use Illuminate\Http\Request;
@@ -43,6 +44,11 @@ class AffiliateController extends Controller
         $currentAffiliate = $comingAffiliate;
 
         $relations = [];
+
+        $affiliate=Affiliate::where('user_id',$userId)->first();
+        if($affiliate){
+            return;
+        }
 
         while ($generation <= $maxGenerations && $currentAffiliate) {
             $parent = User::select('id', 'coming_affiliate')
@@ -103,9 +109,12 @@ class AffiliateController extends Controller
             'type' => 'affiliate',
             'amount' => 100,
         ]);
+
+        
     });
 
     return $this->successResponse('Affiliate activated successfully');
  }
+
 
 }

@@ -33,8 +33,6 @@ Route::prefix('admin/v1')->group(function () {
     Route::apiResource('ranks', RankController::class)->names('rank');
     Route::apiResource('user_ranks', UserRankController::class)->names('user_rank');
 
-
- 
 });
 
  
