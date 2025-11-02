@@ -18,7 +18,6 @@ use App\Http\Controllers\Admin\UserTransaction\UserTransactionController;
 
 Route::prefix('admin/v1')->middleware(JwtAdminMiddleware::class)->group(function () {
     
-    Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
     Route::post('me', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'me']);
 //////////////////////
     Route::apiResource('users', UserController::class)->names('user');
@@ -38,6 +37,7 @@ Route::prefix('admin/v1')->middleware(JwtAdminMiddleware::class)->group(function
 });
 
  
+    Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
 
 Route::prefix('v1')->group(function () {
  
