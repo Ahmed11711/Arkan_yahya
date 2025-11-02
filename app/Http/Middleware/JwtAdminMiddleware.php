@@ -21,7 +21,7 @@ class JwtAdminMiddleware
                 'id' => $payload->get('sub'),
                 'name' => $payload->get('name'),
                 'email' => $payload->get('email'),
-                'linkDeposit' => $payload->get('linkDeposit')
+                // 'linkDeposit' => $payload->get('linkDeposit')
             ]);
         } catch (TokenExpiredException $e) {
             return $this->errorResponse('Token expired');
