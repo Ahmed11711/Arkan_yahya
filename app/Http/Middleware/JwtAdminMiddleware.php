@@ -32,7 +32,7 @@ class JwtAdminMiddleware
 
             return $this->errorResponse('Token invalid');
         } catch (JWTException $e) {
-            Log::info("dd", [$e]);
+            Log::info("ddss", [$e]);
 
             return $this->errorResponse('Token not provided' );
         }
