@@ -37,9 +37,9 @@ Route::prefix('admin/v1')->middleware(JwtAdminMiddleware::class)->group(function
 });
 
  
-    Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
 
-Route::prefix('v1')->group(function () {
- 
+Route::prefix('admin/v1')->group(function () {
+     Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
+
 
 });
