@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use Illuminate\Http\Request;
+use App\Models\UserTwoFactor;
 use App\Traits\ApiResponseTrait;
+use PragmaRX\Google2FA\Google2FA;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Login\LoginResource;
+use App\Http\Resources\Admin\User\UserResource;
 use App\Http\Requests\Admin\Auth\AuthLoginRequest;
-use App\Models\UserTwoFactor;
-use PragmaRX\Google2FA\Google2FA;
 
 class AuthController extends Controller
 {
@@ -26,13 +28,11 @@ class AuthController extends Controller
 
         $user = auth()->user();
 
-        // ✅ السماح فقط للأدمن
-        if ($user->type !== 'admin') {
+         if ($user->type !== 'admin') {
             return $this->errorResponse('Access denied', 403);
         }
 
-        // ✅ تحقق من كود 2FA
-        $userTwoFactor = UserTwoFactor::where('user_id', $user->id)
+         $userTwoFactor = UserTwoFactor::where('user_id', $user->id)
             ->where('method', 'app')
             ->first();
 
@@ -46,25 +46,16 @@ class AuthController extends Controller
             return $this->errorResponse('Invalid 2FA code.', 401);
         }
 
-        // ✅ توليد JWT
-        $jwt = JWTAuth::fromUser($user);
+         $jwt = JWTAuth::fromUser($user);
+         $user->token=$jwt;
 
-        // ✅ تخزين التوكن في كوكي آمن (HTTP-only)
-        $cookie = cookie(
-            'access_token',
-            $jwt,
-            JWTAuth::factory()->getTTL() * 60,
-            '/',       // المسار
-            null,      // الدومين (افتراضي)
-            true,      // Secure: فقط عبر HTTPS
-            true       // HttpOnly: لا يمكن قراءته من JavaScript
-        );
+  return $this->successResponse([
+            'user' => new LoginResource($user),
+            'token' => $token,
+        ], 'Login Successfully');
 
-        // ✅ استجابة النجاح
-        return response()->json([
-            'message' => 'Login successful',
-            'user' => $user,
-        ])->cookie($cookie);
+       
+       
     }
 
     // ✅ تسجيل الخروج

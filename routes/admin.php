@@ -1,21 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\UserTransaction\UserTransactionController;
-use App\Http\Controllers\Admin\UserPlan\UserPlanController;
-use App\Http\Controllers\Admin\UserRank\UserRankController;
-use App\Http\Controllers\Admin\Partner\PartnerController;
-use App\Http\Controllers\Admin\UserKyc\UserKycController;
-use App\Http\Controllers\Admin\Withdraw\WithdrawController;
+use App\Http\Middleware\JwtAdminMiddleware;
 use App\Http\Controllers\Admin\ads\adsController;
 use App\Http\Controllers\Admin\Rank\RankController;
 use App\Http\Controllers\Admin\User\UserController;
 use App\Http\Controllers\Admin\Blogs\BlogsController;
 use App\Http\Controllers\Admin\Wallet\WalletController;
 use App\Http\Controllers\Admin\Deposit\DepositController;
+use App\Http\Controllers\Admin\Partner\PartnerController;
 use App\Http\Controllers\Admin\Service\ServiceController;
+use App\Http\Controllers\Admin\UserKyc\UserKycController;
+use App\Http\Controllers\Admin\UserPlan\UserPlanController;
+use App\Http\Controllers\Admin\UserRank\UserRankController;
+use App\Http\Controllers\Admin\Withdraw\WithdrawController;
+use App\Http\Controllers\Admin\UserTransaction\UserTransactionController;
 
-Route::prefix('admin/v1')->group(function () {
+Route::prefix('admin/v1')->middleware(JwtAdminMiddleware::class)->group(function () {
     
     Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
     Route::post('me', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'me']);
