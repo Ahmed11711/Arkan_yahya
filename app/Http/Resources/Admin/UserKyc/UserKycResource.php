@@ -26,10 +26,8 @@ class UserKycResource extends JsonResource
             return null;
         }
 
-        // استخراج اسم الملف من المسار الأصلي
-        $filename = basename($url);
+         $filename = basename($url);
 
-        // تكوين المسار الجديد
-        return "https://back.zayamrock.com/storage/app/public/Kyc/" . $filename;
+         return "https://back.zayamrock.com/storage/app/public/Kyc/" . $filename;
     }
 }
