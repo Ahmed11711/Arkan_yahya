@@ -12,7 +12,7 @@ class LoginByGoogleRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'id_token'=>'required|string'
+            'id_token'=>'required'
         ];
     }
 }
