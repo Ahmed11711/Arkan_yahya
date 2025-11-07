@@ -4,9 +4,10 @@ namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-
-trait ApiResponseTrait
+ trait ApiResponseTrait
 {
     public function successResponse(
         mixed $data = null,
@@ -91,4 +92,53 @@ trait ApiResponseTrait
             500
         );
     }
+
+   
+
+public function successResponsePaginate($data, string $message = '', int $code = 200): JsonResponse
+{
+        $ss= response()->json([
+            'status' => true,
+            'message' => $message,
+            'data' => $data->items(),
+            'meta' => [
+                'current_page' => $data->currentPage(),
+                'last_page' => $data->lastPage(),
+                'per_page' => $data->perPage(),
+                'total' => $data->total(),
+            ],
+        ], $code);
+        
+         Log::alert("sss",[$ss]);
+
+         return $ss;
+
+
+     if (method_exists($data, 'resource') && $data->resource instanceof LengthAwarePaginator) {
+        $paginator = $data->resource;
+
+        return response()->json([
+            'status' => true,
+            'message' => $message,
+            'data' => $data->collection, // الموارد بعد التحويل
+            'meta' => [
+                'current_page' => $paginator->currentPage(),
+                'last_page' => $paginator->lastPage(),
+                'per_page' => $paginator->perPage(),
+                'total' => $paginator->total(),
+            ],
+        ], $code);
+    }
+
+  
 }
+
+}
+
+
+
+
+
+
+
+

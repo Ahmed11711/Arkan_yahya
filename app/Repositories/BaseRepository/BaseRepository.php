@@ -16,10 +16,11 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model = $model;
     }
 
-    public function query()
-    {
-        return $this->model->newQuery();
-    }
+   public function query()
+{
+    return $this->model->newQuery();
+}
+
     public function all()
     {
         return $this->model->all();

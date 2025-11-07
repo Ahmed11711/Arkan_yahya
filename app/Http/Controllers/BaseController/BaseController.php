@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\BaseController;
 
 use Illuminate\Http\Request;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
-use App\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 abstract class BaseController extends Controller
 {
@@ -32,16 +33,49 @@ abstract class BaseController extends Controller
         $this->uploadDisk = $uploadDisk;
     }
 
-    public function index(Request $request): JsonResponse
-    {
-        $data = $this->repository->all();
+public function index(Request $request): JsonResponse
+{
+     try {
+        $query = $this->repository->query();
+
+        // البحث
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $table = $q->getModel()->getTable();
+                $stringColumns = Schema::getColumnListing($table);
+                $stringColumns = array_filter($stringColumns, function ($col) {
+                    return !in_array($col, ['id', 'created_at', 'updated_at', 'deleted_at']);
+                });
+                foreach ($stringColumns as $column) {
+                    $q->orWhere($column, 'like', "%{$search}%");
+                }
+            });
+        }
+
+        // الفلاتر
+        $excluded = ['search', 'page', 'per_page'];
+        foreach ($request->except($excluded) as $key => $value) {
+            if ($value === null || $value === '') continue;
+            if (Schema::hasColumn($query->getModel()->getTable(), $key)) {
+                $query->where($key, $value);
+            }
+        }
+
+        // ✅ Pagination
+        $perPage = $request->input('per_page', 10);
+        $data = $query->latest()->paginate($perPage);
 
         if (class_exists($this->resourceClass)) {
             $data = $this->resourceClass::collection($data);
         }
 
-        return $this->successResponse($data, "{$this->collectionName} list retrieved successfully");
+        return $this->successResponsePaginate($data, "{$this->collectionName} list retrieved successfully");
+    } catch (\Throwable $e) {
+        Log::error("Error in {$this->collectionName} index: " . $e->getMessage());
+        return $this->errorResponse("Failed to fetch data", 500);
     }
+}
+
 
     public function show(int $id): JsonResponse
     {

@@ -14,15 +14,15 @@ class UserKyc extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function front()
-    {
-        return $this->belongsTo(Front::class, 'front_id');
-    }
+    // public function front()
+    // {
+    //     return $this->belongsTo(Front::class, 'front_id');
+    // }
 
 
-    public function back()
-    {
-        return $this->belongsTo(Back::class, 'back_id');
-    }
+    // public function back()
+    // {
+    //     return $this->belongsTo(Back::class, 'back_id');
+    // }
 
 }
