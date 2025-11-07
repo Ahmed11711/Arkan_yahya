@@ -23,7 +23,7 @@ class UserUpdateRequest extends BaseRequest
             'affiliate_code_active'=>'sometimes|boolean',
 
             'verified_kyc' => 'sometimes|required|boolean',
-            'type' => 'sometimes|required|in:user,guest',
+            'type' => 'sometimes|required|in:user,guest,admin',
          ];
     }
 }
