@@ -10,7 +10,7 @@ class UserKycResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            'user_id' => $this->user->name ?? $this->user_id,
             'front_id' => $this->buildImagePath($this->front_id),
             'back_id' => $this->buildImagePath($this->back_id),
             'face' => $this->buildImagePath($this->face),
