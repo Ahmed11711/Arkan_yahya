@@ -58,8 +58,7 @@ class DepositController extends BaseController
 
 // لو فيه decrypted_payload
 if (!empty($record->decrypted_payload) && is_array($record->decrypted_payload)) {
-    // دمج الحقول داخل decrypted_payload مع المصفوفة الرئيسية
-    $data = array_merge($data, $record->decrypted_payload);
+     $data = array_merge($data, $record->decrypted_payload);
 }
 
  
