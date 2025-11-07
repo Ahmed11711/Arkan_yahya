@@ -32,6 +32,7 @@ class DepositController extends BaseController
 {
     $record = $this->repository->find($id);
 
+    
     if (!$record) {
         return $this->errorResponse("Record not found", 404);
     }
@@ -42,7 +43,28 @@ class DepositController extends BaseController
 
      $record->decrypted_payload = $decryptedData;
 
-    return $this->successResponse($record, 'Record retrieved successfully');
+   $data = [
+    'id' => $record->id,
+    'user_id'=>$record->user->name ?? $record->id,
+    'transaction_id' => $record->transaction_id,
+    'address' => $record->address,
+    'symbol' => $record->symbol,
+    'amount' => $record->amount,
+    // 'user_id' => $record->user_id,
+    'status' => $record->status,
+    'created_at' => $record->created_at,
+    'updated_at' => $record->updated_at,
+];
+
+// لو فيه decrypted_payload
+if (!empty($record->decrypted_payload) && is_array($record->decrypted_payload)) {
+    // دمج الحقول داخل decrypted_payload مع المصفوفة الرئيسية
+    $data = array_merge($data, $record->decrypted_payload);
+}
+
+ 
+ 
+    return $this->successResponse($data, 'Record retrieved successfully');
 }
 
 

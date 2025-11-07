@@ -95,7 +95,7 @@ class CReateTRonController extends Controller
         $password='A_141516141516';
          $record = DB::table('user_trons')->where('user_id', $user_id)->first();
 
-        if (!$record || !$record->encrypted_payload) {
+         if (!$record || !$record->encrypted_payload) {
             return null;
         }
         // $ssl={"ciphertext":"QWZBMsGjfdxaWeNjquPcQN2fxbb+PBgrKX3mfm+v+zhwLcrBhjdc5snaxn+YKcQi+eDTbwPjJmf8VNijWRm+z7Fangjm9iHOezlmqkNMu6agiZx6CjwiRuCqXaq3+0FbQicH4j503kWDThmQSPtVhDZQusRoOKznijCsL+tKDyY44trE1tc7Grtq0UFOj\/Qnc5biEt91KF0hxVKA50Nsr+kiZZtcFInHLboU7kjRRKnXyjyhWVowjFU45QPyqUYuQ\/FcfoT++UN\/orgDJR1sJh7yFx\/SPPkbTtKejPhqN3Jt7Z8SteRexS7aSF8iqfraVjlTaxP8LtZD8Oxv+xbX30ufgGmLF9H9qT54yJ+vcCNgdMgMe58oZfPsqIKdwxngKkb21GPe09tKQEQqCRrUzlOppzEcJiP1DOHK4DSxRw8wxPq9OiCPFVXi+mlNlShegzFTsyyWEYKkwy0htC5wbzKf8MXP49fYEfgA46IwowBR2skrdGhVxTmfaYY1JA==","salt":"123A2p4Cgz\/T6Iwqtii9Lw==","nonce":"zK169Zk04c7EI8oqpetoK3WqGUzbKKO8"};
