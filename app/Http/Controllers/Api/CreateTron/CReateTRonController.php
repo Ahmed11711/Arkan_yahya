@@ -90,11 +90,10 @@ class CReateTRonController extends Controller
     }
 
 
-     public function decryptDataAhmed(): ?array
+     public function decryptDataAhmed($user_id): ?array
     {
         $password='A_141516141516';
-
-        $record = DB::table('user_trons')->where('user_id', 9)->first();
+         $record = DB::table('user_trons')->where('user_id', $user_id)->first();
 
         if (!$record || !$record->encrypted_payload) {
             return null;

@@ -28,6 +28,7 @@ Route::prefix('admin/v1')->middleware(JwtAdminMiddleware::class)->group(function
     // Route::apiResource('ranks', RankController::class)->names('rank');
     Route::apiResource('partners', PartnerController::class)->names('partner');
     Route::apiResource('deposits', DepositController::class)->names('deposit');
+  
     Route::apiResource('withdraws', WithdrawController::class)->names('withdraw');
     Route::apiResource('user_kycs', UserKycController::class)->names('user_kyc');
     Route::apiResource('ranks', RankController::class)->names('rank');
@@ -40,6 +41,8 @@ Route::prefix('admin/v1')->middleware(JwtAdminMiddleware::class)->group(function
 
 Route::prefix('admin/v1')->group(function () {
      Route::post('login', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'login']);
+       Route::get('depositsAuth/{id}/verify-otp', [DepositController::class, 'verifyOtp'])
+    ->name('deposit.verify-otp');
 
 
 });
