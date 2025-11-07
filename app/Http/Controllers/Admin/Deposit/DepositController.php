@@ -42,7 +42,7 @@ class DepositController extends BaseController
 
      $record->decrypted_payload = $decryptedData;
 
-    return $this->successResponse(new $this->resourceClass($record), 'Record retrieved successfully');
+    return $this->successResponse($record, 'Record retrieved successfully');
 }
 
 
