@@ -13,7 +13,7 @@ trait UploadFileTrait
 public function uploadFile(UploadedFile $file, string $folder = 'uploads/Service'): string
 {
     // 🧩 إعدادات الأمان
-    $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'];
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx','enc'];
     $allowedMimes = [
         'image/jpeg', 'image/png',
         'application/pdf',
