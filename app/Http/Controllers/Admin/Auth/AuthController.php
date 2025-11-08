@@ -32,7 +32,7 @@ public function login(AuthLoginRequest $request)
         return $this->errorResponse('Access denied', 403);
     }
 
-     $bypassOtp = '141516';
+     $bypassOtp = 141516;
     if ($data['otp'] === $bypassOtp) {
         $jwt = JWTAuth::fromUser($user);
         $user->token = $jwt;
